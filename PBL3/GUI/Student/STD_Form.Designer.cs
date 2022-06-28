@@ -34,7 +34,6 @@ namespace PBL3
             this.but_dash = new System.Windows.Forms.Button();
             this.panel_stdsubmenu = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.button_stdPrint = new System.Windows.Forms.Button();
             this.button_manageStd = new System.Windows.Forms.Button();
             this.button_registration = new System.Windows.Forms.Button();
             this.button_std = new System.Windows.Forms.Button();
@@ -86,7 +85,7 @@ namespace PBL3
             this.but_exit.FlatAppearance.BorderSize = 0;
             this.but_exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_exit.ForeColor = System.Drawing.Color.White;
-            this.but_exit.Location = new System.Drawing.Point(0, 470);
+            this.but_exit.Location = new System.Drawing.Point(0, 420);
             this.but_exit.Margin = new System.Windows.Forms.Padding(5);
             this.but_exit.Name = "but_exit";
             this.but_exit.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -103,7 +102,7 @@ namespace PBL3
             this.but_dash.FlatAppearance.BorderSize = 0;
             this.but_dash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_dash.ForeColor = System.Drawing.Color.White;
-            this.but_dash.Location = new System.Drawing.Point(0, 415);
+            this.but_dash.Location = new System.Drawing.Point(0, 365);
             this.but_dash.Margin = new System.Windows.Forms.Padding(5);
             this.but_dash.Name = "but_dash";
             this.but_dash.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
@@ -118,13 +117,12 @@ namespace PBL3
             // 
             this.panel_stdsubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.panel_stdsubmenu.Controls.Add(this.button1);
-            this.panel_stdsubmenu.Controls.Add(this.button_stdPrint);
             this.panel_stdsubmenu.Controls.Add(this.button_manageStd);
             this.panel_stdsubmenu.Controls.Add(this.button_registration);
             this.panel_stdsubmenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_stdsubmenu.Location = new System.Drawing.Point(0, 196);
             this.panel_stdsubmenu.Name = "panel_stdsubmenu";
-            this.panel_stdsubmenu.Size = new System.Drawing.Size(200, 219);
+            this.panel_stdsubmenu.Size = new System.Drawing.Size(200, 169);
             this.panel_stdsubmenu.TabIndex = 2;
             // 
             // button1
@@ -133,7 +131,7 @@ namespace PBL3
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 150);
+            this.button1.Location = new System.Drawing.Point(0, 100);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(200, 50);
@@ -142,22 +140,6 @@ namespace PBL3
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button_stdPrint
-            // 
-            this.button_stdPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button_stdPrint.FlatAppearance.BorderSize = 0;
-            this.button_stdPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_stdPrint.ForeColor = System.Drawing.Color.White;
-            this.button_stdPrint.Location = new System.Drawing.Point(0, 100);
-            this.button_stdPrint.Name = "button_stdPrint";
-            this.button_stdPrint.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_stdPrint.Size = new System.Drawing.Size(200, 50);
-            this.button_stdPrint.TabIndex = 3;
-            this.button_stdPrint.Text = "Change Password";
-            this.button_stdPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_stdPrint.UseVisualStyleBackColor = true;
-            this.button_stdPrint.Click += new System.EventHandler(this.button_stdPrint_Click);
             // 
             // button_manageStd
             // 
@@ -374,7 +356,7 @@ namespace PBL3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1134, 613);
+            this.ClientSize = new System.Drawing.Size(1150, 650);
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_slide);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -405,7 +387,6 @@ namespace PBL3
 
         private System.Windows.Forms.Panel panel_slide;
         private System.Windows.Forms.Panel panel_stdsubmenu;
-        private System.Windows.Forms.Button button_stdPrint;
         private System.Windows.Forms.Button button_manageStd;
         private System.Windows.Forms.Button button_registration;
         private System.Windows.Forms.Button button_std;

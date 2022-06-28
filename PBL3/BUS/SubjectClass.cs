@@ -55,6 +55,15 @@ namespace PBL3.BUS
                 return false;
             }
         }
+        public List<int> getListSub(MySqlCommand command)
+        {
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
+            return result;
+        }
         public bool insertSub_Stu_Sco(int StdId,int Subject_ID)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `sub_stu_sco`( `StdId`, `Subject_ID`) VALUES (@stdid,@subid)", connect.getconnection);

@@ -23,16 +23,16 @@ namespace PBL3
         public ManageStudentForm()
         {
             InitializeComponent();
-            getcbbcourse();
+            //getcbbcourse();
         }
-        public void getcbbcourse()
-        {
-            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `CourseName` FROM `course`")))
-            {
-                cbb_course.Items.Add(i);
-            }
-            cbb_course.SelectedIndex = 0;
-        }
+        //public void getcbbcourse()
+        //{
+        //    foreach (string i in course.getListCourse(new MySqlCommand("SELECT `CourseName` FROM `course`")))
+        //    {
+        //        cbb_course.Items.Add(i);
+        //    }
+        //    cbb_course.SelectedIndex = 0;
+        //}
 
         private void ManageStudentForm_Load(object sender, EventArgs e)
         {
@@ -40,9 +40,9 @@ namespace PBL3
         }
         public void showTable()
         {
-            DataGridView_student.DataSource = student.getStudentlist(new MySqlCommand("SELECT student.StdId, `StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`, `Address`, sub_stu_sco.Subject_ID, `UserID`,`Photo` FROM `student`,`sub_stu_sco` WHERE student.StdId=sub_stu_sco.StdId"));
+            DataGridView_student.DataSource = student.getStudentlist(new MySqlCommand("SELECT student.StdId, `StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`, `Address`, `UserID`,`Photo` FROM `student`"));
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
-            imageColumn = (DataGridViewImageColumn)DataGridView_student.Columns[9];
+            imageColumn = (DataGridViewImageColumn)DataGridView_student.Columns[8];
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
         }
 
@@ -60,10 +60,10 @@ namespace PBL3
             textBox_phone.Text = DataGridView_student.CurrentRow.Cells[5].Value.ToString();
             textBox_address.Text = DataGridView_student.CurrentRow.Cells[6].Value.ToString();
             string Sub_ID= DataGridView_student.CurrentRow.Cells[7].Value.ToString();
-            byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[9].Value;
+            byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[8].Value;
             MemoryStream ms = new MemoryStream(img);
             pictureBox_student.Image = Image.FromStream(ms);
-            int ID=Convert.ToInt32(DataGridView_student.CurrentRow.Cells[8].Value.ToString());
+            int ID=Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
             txt_username.Text = user.getUsername(ID);
             txt_password.Text = user.getPassword(ID);
             pre_user=txt_username.Text;
@@ -84,7 +84,6 @@ namespace PBL3
             pictureBox_student.Image = null;
             txt_password.Clear();
             txt_username.Clear();
-            cbb_course.SelectedIndex = 0;
         }
 
         private void button_upload_Click(object sender, EventArgs e)
@@ -173,7 +172,7 @@ namespace PBL3
                 foreach (DataGridViewRow row in DataGridView_student.SelectedRows)
                 {
                     int rowId = Convert.ToInt32(row.Cells[0].Value);
-                    int userId= Convert.ToInt32(row.Cells[8].Value);    
+                    int userId= Convert.ToInt32(row.Cells[7].Value);    
                     if (rowId > 0)
                     {
                         if(student.del_std_sco(rowId))
@@ -194,14 +193,14 @@ namespace PBL3
             }
         }
 
-        private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbb_sub.Items.Clear();
-            string name_course = cbb_course.SelectedItem.ToString();
-            string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
-            cbb_sub.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
-            cbb_sub.DisplayMember = "Subject_Name";
-            cbb_sub.ValueMember = "Subject_Name";
-        }
+        //private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    cbb_sub.Items.Clear();
+        //    string name_course = cbb_course.SelectedItem.ToString();
+        //    string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
+        //    cbb_sub.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
+        //    cbb_sub.DisplayMember = "Subject_Name";
+        //    cbb_sub.ValueMember = "Subject_Name";
+        //}
     }
 }

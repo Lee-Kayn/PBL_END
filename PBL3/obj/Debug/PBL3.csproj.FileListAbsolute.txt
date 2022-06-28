@@ -140,7 +140,6 @@ D:\AMN-main\PBL3\obj\Debug\PBL3.csproj.CopyComplete
 D:\AMN-main\PBL3\obj\Debug\PBL3.GUI.Teacher.Information_Teacher.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.csproj.AssemblyReference.cache
 D:\PBL_END\PBL3\obj\Debug\PBL3.csproj.SuggestedBindingRedirects.cache
-D:\PBL_END\PBL3\obj\Debug\PBL3.ChangePassword.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.CourseForm.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.MainForm.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.GUI.Teacher.Information_Teacher.resources

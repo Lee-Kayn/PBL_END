@@ -48,9 +48,9 @@ namespace PBL3.BUS
         public bool update_user(int ID, string username,string pass)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `user` SET `username`=@user,`password`=@pass WHERE  `UserID`= @id", connect.getconnection);
-            command.Parameters.Add("@user", MySqlDbType.Int32).Value = username;
+            command.Parameters.Add("@user", MySqlDbType.VarChar).Value = username;
             command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass;
-            command.Parameters.Add("@id", MySqlDbType.VarChar).Value = ID;
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = ID;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {

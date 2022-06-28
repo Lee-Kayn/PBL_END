@@ -119,13 +119,17 @@ namespace PBL3
         {
             return exeCount("Select Subject from `teacher`");
         }
-        public string welcome(string User,string Pass)
+        public string welcome(string userID)
         {
-            return exeCount("SELECT Teacher_FN FROM `teacher` WHERE username='"+User+"'AND password='"+Pass+"'") +" "+ exeCount("SELECT Teacher_LN FROM `teacher` WHERE username='" + User + "'AND password='" + Pass + "'");
+            return exeCount("SELECT Teacher_FN FROM `teacher` WHERE UserID='"+userID+"'") +" "+ exeCount("SELECT Teacher_LN FROM `teacher` WHERE UserID='"+userID +"'");
         }
-        public string getTeacherid(string user,string pass)
+        public string getUserID(string user,string pass)
         {
-            return exeCount("Select TeacherId from teacher where username='" + user + "' and password='" + pass + "'");
+            return exeCount("Select UserID from user where username='" + user + "' and password='" + pass + "'");
+        }
+        public string getTeacherID(string userID)
+        {
+            return exeCount("SELECT `TeacherId` FROM `teacher` WHERE UserID='"+userID+"'");
         }
         //create a function search for student (first name, last name, address)
         public DataTable searchStudent(string searchdata)
@@ -136,6 +140,7 @@ namespace PBL3
             adapter.Fill(table);
             return table;
         }
+
         //create a function edit for student
         public bool updateTeacher(int id, string fname, string lname, DateTime bdate, string gender, string phone, string username, string password, string address, string subject, byte[] img)
         {

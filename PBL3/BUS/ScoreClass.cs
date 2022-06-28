@@ -12,13 +12,12 @@ namespace PBL3
     {
         DBconnect connect = new DBconnect();
         //create a function add score
-        public bool insertScore(int stdid, string courName, double scor, string desc)
+        public bool insertScore(int stdid, double exc,double Exam,double Sum, string desc)
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO `score`(`StudentId`, `CourseName`, `Score`, `Description`) VALUES (@stid,@cn,@sco,@desc)", connect.getconnection);
+            MySqlCommand command = new MySqlCommand("", connect.getconnection);
             //@stid,@cn,@sco,@desc
             command.Parameters.Add("@stid", MySqlDbType.Int32).Value = stdid;
-            command.Parameters.Add("@cn", MySqlDbType.VarChar).Value = courName;
-            command.Parameters.Add("@sco", MySqlDbType.Double).Value = scor;
+
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
@@ -43,9 +42,9 @@ namespace PBL3
         }
 
         // create a function to check already course score
-        public bool checkScore(int stdId, string cName)
+        public bool checkScore(int stdId, string Sub_ID)
         {
-            DataTable table = getList(new MySqlCommand("SELECT * FROM `score` WHERE `StudentId`= " + stdId + " AND `CourseName`= '" + cName + "'"));
+            DataTable table = getList(new MySqlCommand("SELECT * FROM `sub_stu_sco` WHERE `StdId`= " + stdId + " AND `Subject_ID`= '" + Sub_ID + "'"));
             if (table.Rows.Count > 0)
             { return true; }
             else

@@ -45,7 +45,7 @@ namespace PBL3
         private void RegisterForm_Load(object sender, EventArgs e)
         {
             showTable();
-            getcbbcourse();
+            //getcbbcourse();
         }
         //public void getcbbcourse()
         //{
@@ -53,26 +53,26 @@ namespace PBL3
         //    cbb_course.DisplayMember = "CourseName";
         //    cbb_course.ValueMember = "CourseName";
         //}
-        public void getcbbcourse()
-        {
-            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `CourseName` FROM `course`")))
-            {
-                cbb_course.Items.Add(i);
-            }
-            cbb_course.SelectedIndex = 0;
+        //public void getcbbcourse()
+        //{
+        //    foreach (string i in course.getListCourse(new MySqlCommand("SELECT `CourseName` FROM `course`")))
+        //    {
+        //        cbb_course.Items.Add(i);
+        //    }
+        //    cbb_course.SelectedIndex = 0;
                 
-        }
-        private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cbb_sub.Items.Clear();
-            string name_course = cbb_course.SelectedItem.ToString();
-            string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='"+name_course+"'");
-            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'")))
-            {
-                cbb_sub.Items.Add(i);
-            }
-            cbb_sub.SelectedIndex = 0;
-        }
+        //}
+        //private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    cbb_sub.Items.Clear();
+        //    string name_course = cbb_course.SelectedItem.ToString();
+        //    string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='"+name_course+"'");
+        //    foreach (string i in course.getListCourse(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'")))
+        //    {
+        //        cbb_sub.Items.Add(i);
+        //    }
+        //    cbb_sub.SelectedIndex = 0;
+        //}
         // To show student list in DatagridView
         public void showTable()
         {
@@ -140,10 +140,10 @@ namespace PBL3
                         showTable();
                         MessageBox.Show("New Student Added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    int stdID = Convert.ToInt32(student.exeCount("SELECT `StdId` FROM `student` WHERE UserID='" + getID + "'"));
-                    int course_ID = Convert.ToInt32(course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + cbb_course.SelectedItem.ToString() + "'"));
-                    int sub_ID = Convert.ToInt32(subject.exeCount("SELECT `Subject_ID` FROM `subject` WHERE CourseId='" + course_ID.ToString() + "' AND subject_Name='" + cbb_sub.SelectedItem.ToString() + "'"));
-                    subject.insertSub_Stu_Sco(stdID, sub_ID);
+                    //int stdID = Convert.ToInt32(student.exeCount("SELECT `StdId` FROM `student` WHERE UserID='" + getID + "'"));
+                    //int course_ID = Convert.ToInt32(course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + cbb_course.SelectedItem.ToString() + "'"));
+                    //int sub_ID = Convert.ToInt32(subject.exeCount("SELECT `Subject_ID` FROM `subject` WHERE CourseId='" + course_ID.ToString() + "' AND subject_Name='" + cbb_sub.SelectedItem.ToString() + "'"));
+                    //subject.insertSub_Stu_Sco(stdID, sub_ID);
                 }
                 catch (Exception ex)
 
@@ -169,7 +169,7 @@ namespace PBL3
             radioButton_male.Checked = true;
             dateTimePicker1.Value = DateTime.Now;
             pictureBox_student.Image = null;
-            cbb_course.SelectedIndex = 0;
+            //cbb_course.SelectedIndex = 0;
         }
     }
 }

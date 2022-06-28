@@ -205,16 +205,7 @@ namespace PBL3
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                connect.closeConnect();
-                return true;
-            }
-            else
-            {
-                connect.closeConnect();
-                return false;
-            }
+            return true;
 
         }
         // create a function for any command in studentDb

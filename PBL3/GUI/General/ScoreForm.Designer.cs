@@ -29,9 +29,9 @@ namespace PBL3
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button_add = new System.Windows.Forms.Button();
             this.button_clear = new System.Windows.Forms.Button();
@@ -43,14 +43,15 @@ namespace PBL3
             this.label1 = new System.Windows.Forms.Label();
             this.DataGridView_student = new Guna.UI2.WinForms.Guna2DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.comboBox_course = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button_sScore = new System.Windows.Forms.Button();
-            this.button_sStudent = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_student)).BeginInit();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -116,11 +117,11 @@ namespace PBL3
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Cyan;
-            this.label4.Location = new System.Drawing.Point(73, 123);
+            this.label4.Location = new System.Drawing.Point(53, 124);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(91, 28);
+            this.label4.Size = new System.Drawing.Size(121, 28);
             this.label4.TabIndex = 20;
-            this.label4.Text = "Score :";
+            this.label4.Text = "Exercise :";
             // 
             // textBox_stdId
             // 
@@ -158,8 +159,8 @@ namespace PBL3
             // 
             this.DataGridView_student.AllowUserToAddRows = false;
             this.DataGridView_student.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.DataGridView_student.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
+            this.DataGridView_student.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
             this.DataGridView_student.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -168,23 +169,23 @@ namespace PBL3
             this.DataGridView_student.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.DataGridView_student.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.DataGridView_student.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridView_student.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridView_student.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.DataGridView_student.ColumnHeadersHeight = 24;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridView_student.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridView_student.DefaultCellStyle = dataGridViewCellStyle12;
             this.DataGridView_student.EnableHeadersVisualStyles = false;
             this.DataGridView_student.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.DataGridView_student.Location = new System.Drawing.Point(13, 52);
@@ -221,6 +222,10 @@ namespace PBL3
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.comboBox_course);
             this.panel2.Controls.Add(this.button_add);
@@ -238,13 +243,34 @@ namespace PBL3
             this.panel2.Size = new System.Drawing.Size(934, 259);
             this.panel2.TabIndex = 20;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(529, 82);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(163, 38);
+            this.comboBox1.TabIndex = 35;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Cyan;
+            this.label3.Location = new System.Drawing.Point(389, 87);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(188, 28);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Select Subject :";
+            // 
             // comboBox_course
             // 
             this.comboBox_course.FormattingEnabled = true;
             this.comboBox_course.Location = new System.Drawing.Point(153, 77);
             this.comboBox_course.Name = "comboBox_course";
-            this.comboBox_course.Size = new System.Drawing.Size(486, 38);
+            this.comboBox_course.Size = new System.Drawing.Size(163, 38);
             this.comboBox_course.TabIndex = 33;
+            this.comboBox_course.SelectedIndexChanged += new System.EventHandler(this.comboBox_course_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -261,8 +287,6 @@ namespace PBL3
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Peru;
-            this.panel1.Controls.Add(this.button_sScore);
-            this.panel1.Controls.Add(this.button_sStudent);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.ForeColor = System.Drawing.Color.White;
@@ -271,32 +295,25 @@ namespace PBL3
             this.panel1.Size = new System.Drawing.Size(934, 51);
             this.panel1.TabIndex = 19;
             // 
-            // button_sScore
+            // textBox1
             // 
-            this.button_sScore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_sScore.BackColor = System.Drawing.Color.White;
-            this.button_sScore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_sScore.ForeColor = System.Drawing.Color.Cyan;
-            this.button_sScore.Location = new System.Drawing.Point(796, 12);
-            this.button_sScore.Name = "button_sScore";
-            this.button_sScore.Size = new System.Drawing.Size(126, 34);
-            this.button_sScore.TabIndex = 0;
-            this.button_sScore.Text = "Show Score";
-            this.button_sScore.UseVisualStyleBackColor = false;
-            this.button_sScore.Click += new System.EventHandler(this.button_sScore_Click);
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox1.Location = new System.Drawing.Point(529, 123);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(135, 37);
+            this.textBox1.TabIndex = 37;
             // 
-            // button_sStudent
+            // label6
             // 
-            this.button_sStudent.BackColor = System.Drawing.Color.White;
-            this.button_sStudent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_sStudent.ForeColor = System.Drawing.Color.Cyan;
-            this.button_sStudent.Location = new System.Drawing.Point(17, 12);
-            this.button_sStudent.Name = "button_sStudent";
-            this.button_sStudent.Size = new System.Drawing.Size(126, 34);
-            this.button_sStudent.TabIndex = 0;
-            this.button_sStudent.Text = "Show Student";
-            this.button_sStudent.UseVisualStyleBackColor = false;
-            this.button_sStudent.Click += new System.EventHandler(this.button_sStudent_Click);
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Cyan;
+            this.label6.Location = new System.Drawing.Point(449, 128);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(90, 28);
+            this.label6.TabIndex = 36;
+            this.label6.Text = "Exam :";
             // 
             // ScoreForm
             // 
@@ -315,7 +332,6 @@ namespace PBL3
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_student)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -334,9 +350,11 @@ namespace PBL3
         private Guna.UI2.WinForms.Guna2DataGridView DataGridView_student;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox_course;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button_sScore;
-        private System.Windows.Forms.Button button_sStudent;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label6;
     }
 }

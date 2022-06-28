@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using PBL3.GUI.Teacher;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace PBL3
         StudentClass student = new StudentClass();
         CourseClass course = new CourseClass();
         TeacherClass teacher = new TeacherClass();
+        SubjectClass subjectClass = new SubjectClass();
         string user, pass;
         public Teacher_Form(string uname,string password)
         {
@@ -26,14 +28,25 @@ namespace PBL3
             pass= password;
         }
 
+
+
         private void Teacher_Form_Load(object sender, EventArgs e)
         {
             //studentCount();
-            //label_user.Text = teacher.welcome(user,pass);
+            string userID=teacher.getUserID(user,pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            label_user.Text = teacher.welcome(userID);
             ////populate the combobox with courses name
-            //comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `teacher` where username='"+user+"' and password='"+pass+"'"));
-            //comboBox_course.DisplayMember = "Subject";
-            //comboBox_course.ValueMember = "Subject";
+            List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='"+TeacherID+"'"));
+            List<string> listCourse = new List<string>();
+            foreach(int i in listSub)
+            {
+                string courseID = subjectClass.exeCount("SELECT `CourseId` FROM `subject` WHERE Subject_ID='" + i + "'");
+                string couerseName=course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='"+courseID+"'");
+                listCourse.Add(couerseName);
+                comboBox_course.Items.Add(couerseName);
+            }    
+         
         }
 
         //create a function to display student count
@@ -101,7 +114,7 @@ namespace PBL3
         #region ScoreSubmenu
         private void button_newScore_Click(object sender, EventArgs e)
         {
-            openChildForm(new ScoreForm(1));
+            openChildForm(new ScoreForm(user,pass));
             //...
             //..Your code
             //...
