@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,14 @@ namespace PBL3.GUI.Teacher
     public partial class Information_Teacher : Form
     {
         TeacherClass teacher = new TeacherClass();
-        public string user, pass;
+        UserClass userClass = new UserClass();
+        public string user, pass,ID,pre_user,pre_pass;
         public Information_Teacher(string user, string pass)
         {
             this.user = user;
             this.pass = pass;
+            this.pre_pass = pass;
+            this.pre_user = user;
             InitializeComponent();
         }
 
@@ -72,7 +76,7 @@ namespace PBL3.GUI.Teacher
             {
                 try
                 {
-                    if (teacher.updateTeacher_Non(id, fname, lname, bdate, gender, phone, user, pass, address))
+                    if (teacher.updateTeacher_Non(id, fname, lname, bdate, gender, phone, address)&&userClass.update_user(Convert.ToInt32(ID),user,pass))
                     {
                         showTable();
                         MessageBox.Show("Teacher data update", "Update Teacher", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -90,11 +94,20 @@ namespace PBL3.GUI.Teacher
                 MessageBox.Show("Empty Field", "Update Teacher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             showTable();
+            if (pre_user != user || pre_pass != pass)
+            {
+                MessageBox.Show("You changed Username or Password. You must login again", "Account Changed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoginForm login = new LoginForm();
+                this.Close();
+                login.Show();
+            }
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = teacher.getTeacherlist(new MySqlCommand("SELECT TeacherId,Teacher_FN,Teacher_LN,Birthdate,Gender,Phone,username,password,Address FROM `teacher` where username='" + user + "' and password='" + pass + "'"));
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass+"'");
+            dataGridView1.DataSource = teacher.getTeacherlist(new MySqlCommand("SELECT `TeacherId`, `Teacher_FN`, `Teacher_LN`, `Birthdate`, `Gender`, `Phone`,user.username,user.password ,`Address`, `Photo` FROM `teacher`,user WHERE teacher.UserID='"+userID+"' and user.UserID='"+userID+"'"));
+            ID=userID;
         }
 
         private void button_clear_Click(object sender, EventArgs e)
@@ -106,11 +119,14 @@ namespace PBL3.GUI.Teacher
             textBox_address.Clear();
             radioButton_male.Checked = true;
             dateTimePicker1.Value = DateTime.Now;
+            txtpass.Clear();
+            txtusername.Clear();
         }
 
         public void showTable()
         {
-            dataGridView1.DataSource = teacher.getTeacherlist(new MySqlCommand("SELECT TeacherId,Teacher_FN,Teacher_LN,Birthdate,Gender,Phone,username,password,Address FROM `teacher` where username='" + user + "' and password='" + pass + "'"));
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass + "'");
+            dataGridView1.DataSource = teacher.getTeacherlist(new MySqlCommand("SELECT `TeacherId`, `Teacher_FN`, `Teacher_LN`, `Birthdate`, `Gender`, `Phone`,user.username,user.password ,`Address`, `Photo` FROM `teacher`,user WHERE teacher.UserID='" + userID + "' and user.UserID='" + userID + "'"));
         }
 
     }

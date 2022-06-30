@@ -14,6 +14,7 @@ namespace PBL3
     {
         public string user, pass;
         StudentClass student = new StudentClass();
+        TeacherClass teacher = new TeacherClass();
         public STD_Form(string user,string pass)
         {
             this.user=user;
@@ -89,6 +90,9 @@ namespace PBL3
         private void STD_Load(object sender, EventArgs e)
         {
             //label_user.Text = student.welcome(user, pass);
+            string userID = teacher.getUserID(user, pass);
+            label_user.Text = student.welcome(userID);
+            ////populate the combobox with courses name
         }
 
         private void but_dash_Click(object sender, EventArgs e)

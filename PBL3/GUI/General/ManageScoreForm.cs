@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,54 +17,62 @@ namespace PBL3
         CourseClass course = new CourseClass();
         ScoreClass score = new ScoreClass();
         TeacherClass teacher = new TeacherClass();
-        int flag;
-        public ManageScoreForm(int Flag)
+        SubjectClass subjectClass = new SubjectClass();
+        List<int> pre_listSub = new List<int>();
+        string user, pass;
+        public ManageScoreForm(string user,string pass)
         {
             InitializeComponent();
-            flag= Flag;
+            this.user = user;
+            this.pass = pass;
         }
 
         private void ManageScoreForm_Load(object sender, EventArgs e)
         {
-            //populate the combobox with courses name
-            if(flag!=1)
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int count = Convert.ToInt32(teacher.exeCount("SELECT COUNT(*) FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            if (count > 0)
             {
-                comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course`"));
-                comboBox_course.DisplayMember = "CourseName";
-                comboBox_course.ValueMember = "CourseName";
+                int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+                List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+                pre_listSub = listSub;
+                List<string> listCourse = new List<string>();
+                foreach (int i in listSub)
+                {
+                    string sub_name = subjectClass.exeCount("SELECT `subject_Name` FROM `subject` WHERE Subject_ID='" + i + "'");
+                    comboBox1.Items.Add("Sub_ID: " + i + ",Name = " + sub_name);
+                    comboBox2.Items.Add("Sub_ID: " + i + ",Name = " + sub_name);
+                }
+                comboBox1.SelectedIndex = 0;
+                comboBox2.SelectedIndex = 0;
+                DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + listSub[0] + "'"));
             }
-            else
-            {
-                comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course` where CourseName='"+teacher.getSubject()+"'"));
-                comboBox_course.DisplayMember = "CourseName";
-                comboBox_course.ValueMember = "CourseName";
-            }
-            
-            // to show score data on datagridview
-            showScore();
         }
         public void showScore()
         {
-            if(flag!=1)
-                DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId,student.StdFirstName,student.StdLastName,score.CourseName,score.Score,score.Description FROM student INNER JOIN score ON score.StudentId=student.StdId "));
-            else
-                DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId,student.StdFirstName,student.StdLastName,score.CourseName,score.Score,score.Description FROM student INNER JOIN score ON score.StudentId=student.StdId where score.CourseName='"+teacher.getSubject()+"'"));
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));
         }
 
         private void button_Update_Click(object sender, EventArgs e)
         {
-            if (textBox_stdId.Text == "" || textBox_score.Text == "")
+            if (txt_exam.Text == "" || textBox_score.Text == "" || txt_exam.Text == ""||comboBox1.SelectedIndex<0)
             {
                 MessageBox.Show("Need score data", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                int stdId = Convert.ToInt32(textBox_stdId.Text);
-                string cName = comboBox_course.Text;
-                double scor = Convert.ToInt32(textBox_score.Text);
+                int scoreID = Convert.ToInt32(txt_scroreID.Text);
+                double exe = Convert.ToInt32(textBox_score.Text);
                 string desc = textBox_description.Text;
-              
-                if (score.updateScore(stdId,cName,scor, desc))
+                double exam= Convert.ToDouble(txt_exam.Text);
+                double sum = exe * 0.4 + exam * 0.7;
+                int select=Convert.ToInt32(comboBox1.SelectedIndex.ToString());
+                int Sub_ID = pre_listSub[select];
+                if (score.updateScore(scoreID,exe,exam,sum, desc)&& score.update_sub_stu_score(scoreID,Sub_ID))
                 {
                         showScore();
                         button_clear.PerformClick();
@@ -82,20 +91,20 @@ namespace PBL3
         {
             if (textBox_stdId.Text == "")
             {
-                MessageBox.Show("Field Error- we need student id", "Delete Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Field Error- we need scoreid", "Delete Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 foreach (DataGridViewRow row in DataGridView_score.SelectedRows)
                 {
-                    int rowId = Convert.ToInt32(row.Cells[0].Value);
-                    string rowCourse = row.Cells[3].Value.ToString();
-                    if (rowId > 0)
+                    int scoreid = Convert.ToInt32(row.Cells[0].Value);
+                    if (scoreid > 0)
                     {
-                        if (score.deleteScore(rowId,rowCourse))
-                        {
-                            continue;
-                        }
+                        if(score.deleteScore(scoreid))
+                            if (score.delete_sub_stu_sco(scoreid))
+                            {
+                                continue;
+                            }
                     }
                 }
                 showScore();
@@ -110,27 +119,34 @@ namespace PBL3
             textBox_stdId.Clear();
             textBox_score.Clear();
             textBox_description.Clear();
-            textBox_search.Clear();
+            txt_exam.Clear();
+            txt_scroreID.Clear();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            int select = Convert.ToInt32(comboBox2.SelectedIndex.ToString());
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + pre_listSub[select] + "'"));
         }
 
         private void DataGridView_course_Click(object sender, EventArgs e)
         {
             try
             {
-                textBox_stdId.Text = DataGridView_score.CurrentRow.Cells[0].Value.ToString();
-                comboBox_course.Text = DataGridView_score.CurrentRow.Cells[3].Value.ToString();
-                textBox_score.Text = DataGridView_score.CurrentRow.Cells[4].Value.ToString();
-                textBox_description.Text = DataGridView_score.CurrentRow.Cells[5].Value.ToString();
+                textBox_stdId.Text = DataGridView_score.CurrentRow.Cells[1].Value.ToString();
+                txt_scroreID.Text = DataGridView_score.CurrentRow.Cells[0].Value.ToString();
+                textBox_score.Text = DataGridView_score.CurrentRow.Cells[3].Value.ToString();
+                txt_exam.Text= DataGridView_score.CurrentRow.Cells[4].Value.ToString();
+                textBox_description.Text = DataGridView_score.CurrentRow.Cells[6].Value.ToString();
             } catch
             {
                 MessageBox.Show("None Data", "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        private void button_search_Click(object sender, EventArgs e)
-        {
-            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE CONCAT(student.StdFirstName, student.StdLastName, score.CourseName)LIKE '%"+textBox_search.Text+"%'"));
-            
-        }
+        
     }
 }

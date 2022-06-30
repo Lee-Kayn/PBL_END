@@ -29,25 +29,38 @@ namespace PBL3
         //create a function to show data on datagridview score
         private void showScoe()
         {
-             DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT * FROM `sub_stu_sco`"));
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int count = Convert.ToInt32(teacher.exeCount("SELECT COUNT(*) FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            if (count > 0)
+            {
+                int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+                DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));
+            }    
+                
         }
 
         private void ScoreForm_Load(object sender, EventArgs e)
         {
+            
             string userID = teacher.getUserID(user, pass);
             int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
-            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
-            List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
-            List<string> listCourse = new List<string>();
-            foreach (int i in listSub)
+            int count = Convert.ToInt32(teacher.exeCount("SELECT COUNT(*) FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            if(count > 0)
             {
-                string courseID = subjectClass.exeCount("SELECT `CourseId` FROM `subject` WHERE Subject_ID='" + i + "'");
-                string couerseName = course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='" + courseID + "'");
-                listCourse.Add(couerseName);
-                comboBox_course.Items.Add(couerseName);
-            }
-            comboBox_course.SelectedIndex = 0;
-            DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID+"'"));
+                int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+                List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+                List<string> listCourse = new List<string>();
+                foreach (int i in listSub)
+                {
+                    string courseID = subjectClass.exeCount("SELECT `CourseId` FROM `subject` WHERE Subject_ID='" + i + "'");
+                    string couerseName = course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='" + courseID + "'");
+                    listCourse.Add(couerseName);
+                    comboBox_course.Items.Add(couerseName);
+                }
+                comboBox_course.SelectedIndex = 0;
+                DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));
+            }    
             //comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course` where CourseName='" + teacher.getSubject() + "'"));
             //comboBox_course.DisplayMember = "CourseName";
             //comboBox_course.ValueMember = "CourseName";
@@ -79,7 +92,8 @@ namespace PBL3
                     if (!score.checkScore(stdId, Sub_ID))
                     {
                         subjectClass.insertSub_Stu_Sco(stdId, Convert.ToInt32(Sub_ID));
-                        if (score.insertScore(stdId, exc,Exam,Sum, desc))
+                        int scoreID = Convert.ToInt32(student.exeCount("SELECT `ScoreId`FROM `sub_stu_sco` WHERE StdId='" + stdId + "' AND Subject_ID='" + Sub_ID + "'"));
+                        if (score.insertScore(scoreID, exc,Exam,Sum, desc))
                         {
                             showScoe();
                             button_clear.PerformClick();
@@ -108,7 +122,8 @@ namespace PBL3
         {
             textBox_stdId.Clear();
             textBox_score.Clear();
-            comboBox_course.SelectedIndex = 0;
+            if(comboBox_course.Items.Count>0)
+                comboBox_course.SelectedIndex = 0;
             textBox_description.Clear();
         }
 

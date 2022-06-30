@@ -300,6 +300,7 @@ namespace PBL3
             this.DataGridView_student.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.DataGridView_student.Location = new System.Drawing.Point(16, 101);
             this.DataGridView_student.Name = "DataGridView_student";
+            this.DataGridView_student.ReadOnly = true;
             this.DataGridView_student.RowHeadersVisible = false;
             this.DataGridView_student.RowHeadersWidth = 62;
             this.DataGridView_student.RowTemplate.Height = 80;
@@ -320,7 +321,7 @@ namespace PBL3
             this.DataGridView_student.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.DataGridView_student.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.DataGridView_student.ThemeStyle.HeaderStyle.Height = 24;
-            this.DataGridView_student.ThemeStyle.ReadOnly = false;
+            this.DataGridView_student.ThemeStyle.ReadOnly = true;
             this.DataGridView_student.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.DataGridView_student.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.DataGridView_student.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -431,6 +432,7 @@ namespace PBL3
             // textBox_id
             // 
             this.textBox_id.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.textBox_id.Enabled = false;
             this.textBox_id.Location = new System.Drawing.Point(638, 111);
             this.textBox_id.Name = "textBox_id";
             this.textBox_id.Size = new System.Drawing.Size(85, 37);

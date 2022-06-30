@@ -19,6 +19,7 @@ namespace PBL3
         UserClass user= new UserClass();
         CourseClass course = new CourseClass();
         SubjectClass subject = new SubjectClass();
+        ScoreClass ScoreClass = new ScoreClass();
         string pre_user, pre_pass;
         public ManageStudentForm()
         {
@@ -175,14 +176,17 @@ namespace PBL3
                     int userId= Convert.ToInt32(row.Cells[7].Value);    
                     if (rowId > 0)
                     {
+                        List<int> list_scoreID = ScoreClass.getList_ScoreID(new MySqlCommand("SELECT `ScoreId` FROM `sub_stu_sco` WHERE StdId='" +rowId+ "'"));
+                        foreach(int i in list_scoreID)
+                        {
+                            ScoreClass.deleteScore(i);
+                        }
                         if(student.del_std_sco(rowId))
                         {
                             if(student.deleteStudent(rowId))
                             {
                                 if (student.delUserID(userId))
-                                {
                                     continue;
-                                }
                             }    
                         }    
                     }

@@ -1,5 +1,6 @@
 ﻿using DGVPrinterHelper;
 using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace PBL3
         ScoreClass score = new ScoreClass();
         DGVPrinter printer = new DGVPrinter();
         StudentClass student = new StudentClass();
+        UserClass userClass = new UserClass();  
         string user, pass;
         public Print_STD(string user,string pass)
         {
@@ -48,7 +50,9 @@ namespace PBL3
         //to show score list
         public void showScore()
         {
-            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId,student.StdFirstName,student.StdLastName,score.CourseName,score.Score,score.Description FROM student INNER JOIN score ON score.StudentId=student.StdId where score.studentId='" + student.STD_ID(user, pass) + "'"));
+            string userID=userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='"+user+"' AND password='"+pass+"'");
+            string STD_ID = student.exeCount("SELECT `StdId` FROM `student` WHERE UserID='" + userID + "'");
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT student.`StdId`, `StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`,sub_stu_sco.Subject_ID,subject.subject_Name,score.Exercise,score.Exam,score.Summary,score.Description FROM `student`,score,sub_stu_sco,subject WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.StdId='"+STD_ID+"' AND student.StdId='"+STD_ID+"' AND subject.Subject_ID=sub_stu_sco.Subject_ID"));
         }
 
     }

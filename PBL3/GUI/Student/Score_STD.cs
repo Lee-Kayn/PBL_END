@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +18,8 @@ namespace PBL3
         ScoreClass score = new ScoreClass();
         TeacherClass teacher = new TeacherClass();
         StudentClass student = new StudentClass();
-        string user, pass;
+        UserClass userClass = new UserClass();
+        string user, pass,ID;
         public Score_STD(string user,string pass)
         {
             this.user = user;
@@ -27,14 +29,16 @@ namespace PBL3
 
         private void ManageScoreForm_Load(object sender, EventArgs e)
         {
-            comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `score` where studentId='" + student.STD_ID(user, pass) + "'"));
-            comboBox_course.DisplayMember = "CourseName";
-            comboBox_course.ValueMember = "CourseName";
-            showScore();
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass + "'");
+            string StdID = student.exeCount("SELECT `StdId` FROM `student` WHERE UserID='" + userID + "'");
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.StdId='" + StdID + "'"));
+            ID = userID;
         }
         public void showScore()
         {
-            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId,student.StdFirstName,student.StdLastName,score.CourseName,score.Score,score.Description FROM student INNER JOIN score ON score.StudentId=student.StdId where score.studentId='" + student.STD_ID(user,pass) + "'"));
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass + "'");
+            string StdID = student.exeCount("SELECT `StdId` FROM `student` WHERE UserID='" + userID + "'");
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.StdId='"+StdID+"'"));
         }
         private void DataGridView_course_Click(object sender, EventArgs e)
         {

@@ -47,10 +47,10 @@ namespace PBL3
                 int Rows = 0;string Role="";
                 DataTable table = student.getList(new MySqlCommand("SELECT * FROM `user` WHERE `username`= '" + uname + "' AND `password`='" + pass + "'"));
                 Rows = table.Rows.Count;
-                Role = student.getRole(uname, pass);
                 if (Rows > 0)
                 {
-                    if(Role== "Admin")
+                    Role = student.getRole(uname, pass);
+                    if (Role== "Admin")
                     {
                         MainForm main = new MainForm();
                         this.Hide();

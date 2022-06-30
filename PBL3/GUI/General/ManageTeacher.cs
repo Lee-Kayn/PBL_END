@@ -18,7 +18,7 @@ namespace PBL3
         TeacherClass teacher = new TeacherClass();
         CourseClass course = new CourseClass();
         UserClass user = new UserClass();
-        SubjectClass subject = new SubjectClass();
+        SubjectClass subjectclass = new SubjectClass();
         public ManageTeacher()
         {
             InitializeComponent();
@@ -63,7 +63,6 @@ namespace PBL3
         private void manageTeacher_load(object sender, EventArgs e)
         {
             showTable();
-            getcbbcourse();
         }
 
         private void button_upload_Click(object sender, EventArgs e)
@@ -111,10 +110,11 @@ namespace PBL3
             string gender = radioButton_male.Checked ? "Male" : "Female";
             string username = txtusername.Text;
             string password = txtpassword.Text;
-            string subject = comboBox1.SelectedValue.ToString();
-
+            string subject = comboBox2.SelectedItem.ToString();
+            int userID = Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
             int born_year = dateTimePicker1.Value.Year;
             int this_year = DateTime.Now.Year;
+            int SubID = Convert.ToInt32(subjectclass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='" + subject + "'"));
             if ((this_year - born_year) < 10 || (this_year - born_year) > 100)
             {
                 MessageBox.Show("The student age must be between 10 and 100", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -126,7 +126,7 @@ namespace PBL3
                     MemoryStream ms = new MemoryStream();
                     pictureBox_student.Image.Save(ms, pictureBox_student.Image.RawFormat);
                     byte[] img = ms.ToArray();
-                    if (teacher.updateTeacher(id, fname, lname, bdate, gender, username, password, phone, address,subject, img))
+                    if (teacher.updateTeacher(id, fname, lname, bdate, gender, phone, address, img) && user.update_user(userID, username, password) && subjectclass.Update_SUB(id, SubID)) ;
                     {
                         showTable();
                         MessageBox.Show("Teacher data update", "Update Teacher", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -180,11 +180,19 @@ namespace PBL3
         private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox2.Items.Clear();
-            string name_course = comboBox1.SelectedItem.ToString();
-            string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
-            comboBox2.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
-            comboBox2.DisplayMember = "Subject_Name";
-            comboBox2.ValueMember = "Subject_Name";
+            string courseName = comboBox1.SelectedItem.ToString();
+            string courseID = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + courseName + "'");
+            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `subject_Name`FROM `subject` WHERE CourseId='"+courseID+"'")))
+            {
+                comboBox2.Items.Add(i);
+            }
+            comboBox2.SelectedIndex = 0;
+            //comboBox2.Items.Clear();
+            //string name_course = comboBox1.SelectedItem.ToString();
+            //string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
+            //comboBox2.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
+            //comboBox2.DisplayMember = "Subject_Name";
+            //comboBox2.ValueMember = "Subject_Name";
         }
     }
 }

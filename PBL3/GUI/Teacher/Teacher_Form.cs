@@ -38,38 +38,25 @@ namespace PBL3
             label_user.Text = teacher.welcome(userID);
             ////populate the combobox with courses name
             List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='"+TeacherID+"'"));
-            List<string> listCourse = new List<string>();
             foreach(int i in listSub)
             {
-                string courseID = subjectClass.exeCount("SELECT `CourseId` FROM `subject` WHERE Subject_ID='" + i + "'");
-                string couerseName=course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='"+courseID+"'");
-                listCourse.Add(couerseName);
-                comboBox_course.Items.Add(couerseName);
+                string Sub_Name = subjectClass.exeCount("SELECT `subject_Name` FROM `subject` WHERE Subject_ID='"+i+"'");
+                comboBox_course.Items.Add(Sub_Name);
             }    
          
-        }
-
-        //create a function to display student count
-        private void studentCount()
-        {
-            //Display the values
-            label_totalStd.Text = "Total Students : " + student.totalStudent();
-            label_maleStd.Text = "Male : " + student.maleStudent();
-            label_femaleStd.Text = "Female : " + student.femaleStudent();
-
         }
 
 
         private void customizeDesign()
         {
-            panel_stdsubmenu.Visible = false;
+            //panel_stdsubmenu.Visible = false;
             panel_scoreSubmenu.Visible = false;
         }
 
         private void hideSubmenu()
         {
-            if (panel_stdsubmenu.Visible == true)
-                panel_stdsubmenu.Visible = false;
+            //if (panel_stdsubmenu.Visible == true)
+            //    panel_stdsubmenu.Visible = false;
             if (panel_scoreSubmenu.Visible == true)
                 panel_scoreSubmenu.Visible = false;
         }
@@ -87,7 +74,7 @@ namespace PBL3
 
         private void button_std_Click(object sender, EventArgs e)
         {
-            showSubmenu(panel_stdsubmenu);
+            //showSubmenu(panel_stdsubmenu);
         }
         #region StdSubmenu
 
@@ -123,14 +110,14 @@ namespace PBL3
 
         private void button_manageScore_Click(object sender, EventArgs e)
         {
-            openChildForm(new ManageScoreForm(1));
+            openChildForm(new ManageScoreForm(user,pass));
 
             hideSubmenu();
         }
 
         private void button_scorePrint_Click(object sender, EventArgs e)
         {
-            openChildForm(new PrintScoreForm());
+            openChildForm(new PrintScoreForm(user,pass));
             hideSubmenu();
         }
 
@@ -154,6 +141,10 @@ namespace PBL3
         }
         private void comboBox_course_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string sub_name = comboBox_course.Text;
+            string sub_ID = subjectClass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='" + sub_name + "'");
+            label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Male'");
+            label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Female'");
             //label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Male'");
             //label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Female'");
         }
@@ -163,7 +154,6 @@ namespace PBL3
             if (activeForm != null)
                 activeForm.Close();
             panel_main.Controls.Add(panel_cover);
-            studentCount();
         }
 
         private void butexit_Click(object sender, EventArgs e)

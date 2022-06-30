@@ -9,22 +9,23 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using DGVPrinterHelper;
-
+using PBL3.BUS;
 
 namespace PBL3
 {
     public partial class PrintScoreForm : Form
     {
-        ScoreClass score = new ScoreClass();
         DGVPrinter printer = new DGVPrinter();
-        public PrintScoreForm()
+        ScoreClass score = new ScoreClass();
+        TeacherClass teacher = new TeacherClass();
+        SubjectClass subjectClass = new SubjectClass();
+        List<int> pre_listSub = new List<int>();
+        string user, pass;
+        public PrintScoreForm(string user,string pass)
         {
             InitializeComponent();
-        }
-
-        private void button_search_Click(object sender, EventArgs e)
-        {
-            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId, student.StdFirstName, student.StdLastName, score.CourseName, score.Score, score.Description FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE CONCAT(student.StdFirstName, student.StdLastName, score.CourseName)LIKE '%" + textBox_search.Text + "%'"));
+            this.user = user;
+            this.pass = pass;
         }
 
         private void button_print_Click(object sender, EventArgs e)
@@ -45,12 +46,36 @@ namespace PBL3
 
         private void PrintScoreForm_Load(object sender, EventArgs e)
         {
-            showScore();
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            pre_listSub = listSub;
+            List<string> listCourse = new List<string>();
+            foreach (int i in listSub)
+            {
+                string sub_name = subjectClass.exeCount("SELECT `subject_Name` FROM `subject` WHERE Subject_ID='" + i + "'");
+                comboBox1.Items.Add("Sub_ID: " + i + ",Name = " + sub_name);
+            }
+            comboBox1.SelectedIndex = 0;
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + listSub[0] + "'"));
         }
         //to show score list
         public void showScore()
         {
-            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT score.StudentId,student.StdFirstName,student.StdLastName,score.CourseName,score.Score,score.Description FROM student INNER JOIN score ON score.StudentId=student.StdId"));
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string userID = teacher.getUserID(user, pass);
+            int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
+            int SubID = Convert.ToInt32(teacher.exeCount("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + TeacherID + "'"));
+            int select = Convert.ToInt32(comboBox1.SelectedIndex.ToString());
+            DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + pre_listSub[select] + "'"));
         }
     }
 }

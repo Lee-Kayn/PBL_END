@@ -84,6 +84,7 @@
             this.DataGridView_student.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.DataGridView_student.Location = new System.Drawing.Point(13, 95);
             this.DataGridView_student.Name = "DataGridView_student";
+            this.DataGridView_student.ReadOnly = true;
             this.DataGridView_student.RowHeadersVisible = false;
             this.DataGridView_student.RowHeadersWidth = 62;
             this.DataGridView_student.RowTemplate.Height = 80;
@@ -104,7 +105,7 @@
             this.DataGridView_student.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.DataGridView_student.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.DataGridView_student.ThemeStyle.HeaderStyle.Height = 24;
-            this.DataGridView_student.ThemeStyle.ReadOnly = false;
+            this.DataGridView_student.ThemeStyle.ReadOnly = true;
             this.DataGridView_student.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.DataGridView_student.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.DataGridView_student.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

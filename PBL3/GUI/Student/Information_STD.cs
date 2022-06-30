@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,11 +15,15 @@ namespace PBL3
     public partial class Information_STD : Form
     {
         StudentClass student =new StudentClass();
-        public string user, pass;
+        UserClass userClass =new UserClass();
+        public string ID;
+        public string user, pass,pre_pass,pre_user;
         public Information_STD(string user,string pass)
         {
             this.user = user;
             this.pass = pass;
+            pre_pass = pass;
+            pre_user = user;
             InitializeComponent();
         }
 
@@ -72,7 +77,7 @@ namespace PBL3
             {
                 try
                 {
-                    if (student.updateStudent_STD(id, fname, lname, bdate, gender, phone,user,pass ,address))
+                    if (student.updateStudent_STD(id, fname, lname, bdate, gender, phone ,address) && userClass.update_user(Convert.ToInt32(ID), user, pass))
                     {
                         showTable();
                         MessageBox.Show("Student data update", "Update Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -90,11 +95,20 @@ namespace PBL3
                 MessageBox.Show("Empty Field", "Update Student", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             showTable();
+            if(pre_user!=user|| pre_pass!=pass)
+            {
+                MessageBox.Show("You changed Username or Password. You must login again","Account Changed",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoginForm login = new LoginForm();
+                this.Close();
+                login.Show();
+            }
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource= student.getStudentlist(new MySqlCommand("SELECT StdId,StdFirstName,StdLastName,Birthdate,Gender,Phone,username,password,Address FROM `student` where username='"+user+"' and password='"+pass+"'"));
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass + "'");
+            dataGridView1.DataSource = student.getStudentlist(new MySqlCommand("SELECT `StdId`, `StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`,user.username,user.password, `Address`, `Photo` FROM `student`,user WHERE student.UserID='"+userID+"' AND user.UserID='"+userID+"'"));
+            ID = userID;
         }
 
         private void button_clear_Click(object sender, EventArgs e)
@@ -106,11 +120,15 @@ namespace PBL3
             textBox_address.Clear();
             radioButton_male.Checked = true;
             dateTimePicker1.Value = DateTime.Now;
+            txtpass.Clear();
+            txtusername.Clear();
         }
 
         public void showTable()
         {
-            dataGridView1.DataSource = student.getStudentlist(new MySqlCommand("SELECT StdId,StdFirstName,StdLastName,Birthdate,Gender,Phone,username,password,Address FROM `student` where username='" + user + "' and password='" + pass + "'"));
+            string userID = userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='" + user + "'AND password='" + pass + "'");
+            dataGridView1.DataSource = student.getStudentlist(new MySqlCommand("SELECT `StdId`, `StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`,user.username,user.password, `Address`, `Photo` FROM `student`,user WHERE student.UserID='" + userID + "' AND user.UserID='" + userID + "'"));
+            ID = userID;
         }
 
     }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace PBL3
     {
         CourseClass course = new CourseClass();
         TeacherClass teacher = new TeacherClass();
+        SubjectClass subjectClass = new SubjectClass();
+        ScoreClass scoreClass = new ScoreClass();
         public ManageCourseForm()
         {
             InitializeComponent();
@@ -81,17 +84,23 @@ namespace PBL3
                 {
                     foreach (DataGridViewRow row in DataGridView_course.SelectedRows)
                     {
-                        int rowId = Convert.ToInt32(row.Cells[0].Value);
-                        if (rowId > 0)
+                        int i = Convert.ToInt32(row.Cells[0].Value);
+                        List<int> sub_Id = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID`FROM `subject` WHERE CourseId='" + i + "'"));
+                        foreach (int k in sub_Id)
                         {
-                            if (course.deletCourse(rowId))
+                            List<int> listscore_ID = scoreClass.getList_ScoreID(new MySqlCommand("SELECT `ScoreId` FROM `sub_stu_sco` WHERE Subject_ID='" + k + "'"));
+                            foreach (int j in listscore_ID)
                             {
-                                continue;
+                                scoreClass.deleteScore(j);
                             }
+                            subjectClass.Del_sub_stu_sco(k);
+                            subjectClass.Del_teacher_subject(k);
                         }
+                        subjectClass.Delete_SUBbyCourseID(i);
+                        course.deletCourse(i);
                     }
                     showData();
-                    MessageBox.Show("Student Removed", "Remove Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Course Removed", "Remove Course", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     button_clear.PerformClick();
                 }
                 catch (Exception ex)

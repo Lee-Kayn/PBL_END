@@ -49,6 +49,15 @@ namespace PBL3
             adapter.Fill(table);
             return table;
         }
+        public List<int> getList_ScoreID(MySqlCommand command)
+        {
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
+            return result;
+        }
         // Create a function to execute the count query(total, male , female)
         public string exeCount(string query)
         {
@@ -86,9 +95,9 @@ namespace PBL3
         {
             return exeCount("SELECT `Role` FROM `user` WHERE username='"+user+"' and password='" + passwword + "'");
         }
-        public string welcome(string user,string pass)
+        public string welcome(string userID)
         {
-            return exeCount("SELECT StdFirstName FROM `student` WHERE username='" + user + "'AND password='" + pass + "'") + " " + exeCount("SELECT StdLastName FROM `student` WHERE username='" + user + "'AND password='" + pass + "'");
+            return exeCount("SELECT  `StdFirstName` FROM `student` WHERE UserID='" + userID + "'") + " " + exeCount("SELECT  `StdLastName` FROM `student` WHERE UserID='" + userID + "'");
         }
         //create a function search for student (first name, last name, address)
         public DataTable searchStudent(string searchdata)
@@ -127,9 +136,9 @@ namespace PBL3
             }
 
         }
-        public bool updateStudent_STD(int id, string fname, string lname, DateTime bdate, string gender, string phone,string user,string pass, string address)
+        public bool updateStudent_STD(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE `student` SET `StdFirstName`=@fn,`StdLastName`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`username`=@us,`password`=@pass,`Address`=@adr WHERE  `StdId`= @id", connect.getconnection);
+            MySqlCommand command = new MySqlCommand("UPDATE `student` SET `StdFirstName`=@fn,`StdLastName`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr WHERE  `StdId`= @id", connect.getconnection);
 
             //@id,@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -138,8 +147,6 @@ namespace PBL3
             command.Parameters.Add("@bd", MySqlDbType.Date).Value = bdate;
             command.Parameters.Add("@gd", MySqlDbType.VarChar).Value = gender;
             command.Parameters.Add("@ph", MySqlDbType.VarChar).Value = phone;
-            command.Parameters.Add("@us", MySqlDbType.VarChar).Value = user;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass;
             command.Parameters.Add("@adr", MySqlDbType.VarChar).Value = address;
 
             connect.openConnect();
@@ -165,16 +172,9 @@ namespace PBL3
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                connect.closeConnect();
-                return true;
-            }
-            else
-            {
-                connect.closeConnect();
-                return false;
-            }
+            command.ExecuteNonQuery();
+            connect.closeConnect();
+            return true;
 
         }
         public bool delUserID(int id)
@@ -185,16 +185,9 @@ namespace PBL3
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                connect.closeConnect();
-                return true;
-            }
-            else
-            {
-                connect.closeConnect();
-                return false;
-            }
+            command.ExecuteNonQuery();
+            connect.closeConnect();
+            return true;
 
         }
         public bool del_std_sco(int id)
@@ -205,6 +198,8 @@ namespace PBL3
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
+            command.ExecuteNonQuery();
+            connect.closeConnect();
             return true;
 
         }

@@ -38,10 +38,6 @@ namespace PBL3
             this.button_manageScore = new System.Windows.Forms.Button();
             this.button_newScore = new System.Windows.Forms.Button();
             this.button_score = new System.Windows.Forms.Button();
-            this.panel_stdsubmenu = new System.Windows.Forms.Panel();
-            this.button_stdPrint = new System.Windows.Forms.Button();
-            this.button_manageStd = new System.Windows.Forms.Button();
-            this.button_std = new System.Windows.Forms.Button();
             this.panel_logo = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -54,9 +50,6 @@ namespace PBL3
             this.label_cfemale = new System.Windows.Forms.Label();
             this.label_cmale = new System.Windows.Forms.Label();
             this.comboBox_course = new System.Windows.Forms.ComboBox();
-            this.label_femaleStd = new System.Windows.Forms.Label();
-            this.label_maleStd = new System.Windows.Forms.Label();
-            this.label_totalStd = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label_role = new System.Windows.Forms.Label();
@@ -67,7 +60,6 @@ namespace PBL3
             this.label12 = new System.Windows.Forms.Label();
             this.panel_slide.SuspendLayout();
             this.panel_scoreSubmenu.SuspendLayout();
-            this.panel_stdsubmenu.SuspendLayout();
             this.panel_logo.SuspendLayout();
             this.panel_main.SuspendLayout();
             this.panel_cover.SuspendLayout();
@@ -87,8 +79,6 @@ namespace PBL3
             this.panel_slide.Controls.Add(this.but_dash);
             this.panel_slide.Controls.Add(this.panel_scoreSubmenu);
             this.panel_slide.Controls.Add(this.button_score);
-            this.panel_slide.Controls.Add(this.panel_stdsubmenu);
-            this.panel_slide.Controls.Add(this.button_std);
             this.panel_slide.Controls.Add(this.panel_logo);
             this.panel_slide.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_slide.Location = new System.Drawing.Point(0, 0);
@@ -103,11 +93,11 @@ namespace PBL3
             this.butexit.FlatAppearance.BorderSize = 0;
             this.butexit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butexit.ForeColor = System.Drawing.Color.White;
-            this.butexit.Location = new System.Drawing.Point(0, 622);
+            this.butexit.Location = new System.Drawing.Point(0, 459);
             this.butexit.Margin = new System.Windows.Forms.Padding(5);
             this.butexit.Name = "butexit";
             this.butexit.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.butexit.Size = new System.Drawing.Size(174, 55);
+            this.butexit.Size = new System.Drawing.Size(200, 55);
             this.butexit.TabIndex = 11;
             this.butexit.Text = "Exit";
             this.butexit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -120,11 +110,11 @@ namespace PBL3
             this.but_exit.FlatAppearance.BorderSize = 0;
             this.but_exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_exit.ForeColor = System.Drawing.Color.White;
-            this.but_exit.Location = new System.Drawing.Point(0, 567);
+            this.but_exit.Location = new System.Drawing.Point(0, 404);
             this.but_exit.Margin = new System.Windows.Forms.Padding(5);
             this.but_exit.Name = "but_exit";
             this.but_exit.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.but_exit.Size = new System.Drawing.Size(174, 55);
+            this.but_exit.Size = new System.Drawing.Size(200, 55);
             this.but_exit.TabIndex = 10;
             this.but_exit.Text = "Dashboard";
             this.but_exit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,11 +127,11 @@ namespace PBL3
             this.but_dash.FlatAppearance.BorderSize = 0;
             this.but_dash.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.but_dash.ForeColor = System.Drawing.Color.White;
-            this.but_dash.Location = new System.Drawing.Point(0, 512);
+            this.but_dash.Location = new System.Drawing.Point(0, 349);
             this.but_dash.Margin = new System.Windows.Forms.Padding(5);
             this.but_dash.Name = "but_dash";
             this.but_dash.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.but_dash.Size = new System.Drawing.Size(174, 55);
+            this.but_dash.Size = new System.Drawing.Size(200, 55);
             this.but_dash.TabIndex = 9;
             this.but_dash.Text = "Change Information";
             this.but_dash.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -155,9 +145,9 @@ namespace PBL3
             this.panel_scoreSubmenu.Controls.Add(this.button_manageScore);
             this.panel_scoreSubmenu.Controls.Add(this.button_newScore);
             this.panel_scoreSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_scoreSubmenu.Location = new System.Drawing.Point(0, 359);
+            this.panel_scoreSubmenu.Location = new System.Drawing.Point(0, 196);
             this.panel_scoreSubmenu.Name = "panel_scoreSubmenu";
-            this.panel_scoreSubmenu.Size = new System.Drawing.Size(174, 153);
+            this.panel_scoreSubmenu.Size = new System.Drawing.Size(200, 153);
             this.panel_scoreSubmenu.TabIndex = 6;
             // 
             // button_scorePrint
@@ -169,7 +159,7 @@ namespace PBL3
             this.button_scorePrint.Location = new System.Drawing.Point(0, 100);
             this.button_scorePrint.Name = "button_scorePrint";
             this.button_scorePrint.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_scorePrint.Size = new System.Drawing.Size(174, 50);
+            this.button_scorePrint.Size = new System.Drawing.Size(200, 50);
             this.button_scorePrint.TabIndex = 3;
             this.button_scorePrint.Text = "Print";
             this.button_scorePrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -185,7 +175,7 @@ namespace PBL3
             this.button_manageScore.Location = new System.Drawing.Point(0, 50);
             this.button_manageScore.Name = "button_manageScore";
             this.button_manageScore.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_manageScore.Size = new System.Drawing.Size(174, 50);
+            this.button_manageScore.Size = new System.Drawing.Size(200, 50);
             this.button_manageScore.TabIndex = 1;
             this.button_manageScore.Text = "Manage Score";
             this.button_manageScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -201,7 +191,7 @@ namespace PBL3
             this.button_newScore.Location = new System.Drawing.Point(0, 0);
             this.button_newScore.Name = "button_newScore";
             this.button_newScore.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_newScore.Size = new System.Drawing.Size(174, 50);
+            this.button_newScore.Size = new System.Drawing.Size(200, 50);
             this.button_newScore.TabIndex = 0;
             this.button_newScore.Text = "New Score";
             this.button_newScore.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -214,76 +204,16 @@ namespace PBL3
             this.button_score.FlatAppearance.BorderSize = 0;
             this.button_score.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_score.ForeColor = System.Drawing.Color.White;
-            this.button_score.Location = new System.Drawing.Point(0, 304);
+            this.button_score.Location = new System.Drawing.Point(0, 141);
             this.button_score.Margin = new System.Windows.Forms.Padding(5);
             this.button_score.Name = "button_score";
             this.button_score.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button_score.Size = new System.Drawing.Size(174, 55);
+            this.button_score.Size = new System.Drawing.Size(200, 55);
             this.button_score.TabIndex = 5;
             this.button_score.Text = "Score";
             this.button_score.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_score.UseVisualStyleBackColor = true;
             this.button_score.Click += new System.EventHandler(this.button_score_Click);
-            // 
-            // panel_stdsubmenu
-            // 
-            this.panel_stdsubmenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.panel_stdsubmenu.Controls.Add(this.button_stdPrint);
-            this.panel_stdsubmenu.Controls.Add(this.button_manageStd);
-            this.panel_stdsubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_stdsubmenu.Location = new System.Drawing.Point(0, 196);
-            this.panel_stdsubmenu.Name = "panel_stdsubmenu";
-            this.panel_stdsubmenu.Size = new System.Drawing.Size(174, 108);
-            this.panel_stdsubmenu.TabIndex = 2;
-            // 
-            // button_stdPrint
-            // 
-            this.button_stdPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button_stdPrint.FlatAppearance.BorderSize = 0;
-            this.button_stdPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_stdPrint.ForeColor = System.Drawing.Color.White;
-            this.button_stdPrint.Location = new System.Drawing.Point(0, 50);
-            this.button_stdPrint.Name = "button_stdPrint";
-            this.button_stdPrint.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_stdPrint.Size = new System.Drawing.Size(174, 50);
-            this.button_stdPrint.TabIndex = 3;
-            this.button_stdPrint.Text = "Print";
-            this.button_stdPrint.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_stdPrint.UseVisualStyleBackColor = true;
-            this.button_stdPrint.Click += new System.EventHandler(this.button_stdPrint_Click);
-            // 
-            // button_manageStd
-            // 
-            this.button_manageStd.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button_manageStd.FlatAppearance.BorderSize = 0;
-            this.button_manageStd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_manageStd.ForeColor = System.Drawing.Color.White;
-            this.button_manageStd.Location = new System.Drawing.Point(0, 0);
-            this.button_manageStd.Name = "button_manageStd";
-            this.button_manageStd.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
-            this.button_manageStd.Size = new System.Drawing.Size(174, 50);
-            this.button_manageStd.TabIndex = 1;
-            this.button_manageStd.Text = "Manage Student";
-            this.button_manageStd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_manageStd.UseVisualStyleBackColor = true;
-            this.button_manageStd.Click += new System.EventHandler(this.button_manageStd_Click);
-            // 
-            // button_std
-            // 
-            this.button_std.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button_std.FlatAppearance.BorderSize = 0;
-            this.button_std.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_std.ForeColor = System.Drawing.Color.White;
-            this.button_std.Location = new System.Drawing.Point(0, 141);
-            this.button_std.Margin = new System.Windows.Forms.Padding(5);
-            this.button_std.Name = "button_std";
-            this.button_std.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.button_std.Size = new System.Drawing.Size(174, 55);
-            this.button_std.TabIndex = 1;
-            this.button_std.Text = "Student";
-            this.button_std.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_std.UseVisualStyleBackColor = true;
-            this.button_std.Click += new System.EventHandler(this.button_std_Click);
             // 
             // panel_logo
             // 
@@ -295,7 +225,7 @@ namespace PBL3
             this.panel_logo.Location = new System.Drawing.Point(0, 0);
             this.panel_logo.Margin = new System.Windows.Forms.Padding(5);
             this.panel_logo.Name = "panel_logo";
-            this.panel_logo.Size = new System.Drawing.Size(174, 141);
+            this.panel_logo.Size = new System.Drawing.Size(200, 141);
             this.panel_logo.TabIndex = 0;
             // 
             // label4
@@ -371,9 +301,6 @@ namespace PBL3
             this.panel3.Controls.Add(this.label_cfemale);
             this.panel3.Controls.Add(this.label_cmale);
             this.panel3.Controls.Add(this.comboBox_course);
-            this.panel3.Controls.Add(this.label_femaleStd);
-            this.panel3.Controls.Add(this.label_maleStd);
-            this.panel3.Controls.Add(this.label_totalStd);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 556);
             this.panel3.Name = "panel3";
@@ -422,39 +349,6 @@ namespace PBL3
             this.comboBox_course.Size = new System.Drawing.Size(211, 38);
             this.comboBox_course.TabIndex = 3;
             this.comboBox_course.SelectedIndexChanged += new System.EventHandler(this.comboBox_course_SelectedIndexChanged);
-            // 
-            // label_femaleStd
-            // 
-            this.label_femaleStd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_femaleStd.AutoSize = true;
-            this.label_femaleStd.ForeColor = System.Drawing.Color.White;
-            this.label_femaleStd.Location = new System.Drawing.Point(137, 49);
-            this.label_femaleStd.Name = "label_femaleStd";
-            this.label_femaleStd.Size = new System.Drawing.Size(117, 30);
-            this.label_femaleStd.TabIndex = 2;
-            this.label_femaleStd.Text = "Female :";
-            // 
-            // label_maleStd
-            // 
-            this.label_maleStd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_maleStd.AutoSize = true;
-            this.label_maleStd.ForeColor = System.Drawing.Color.White;
-            this.label_maleStd.Location = new System.Drawing.Point(40, 49);
-            this.label_maleStd.Name = "label_maleStd";
-            this.label_maleStd.Size = new System.Drawing.Size(88, 30);
-            this.label_maleStd.TabIndex = 2;
-            this.label_maleStd.Text = "Male :";
-            // 
-            // label_totalStd
-            // 
-            this.label_totalStd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_totalStd.AutoSize = true;
-            this.label_totalStd.ForeColor = System.Drawing.Color.White;
-            this.label_totalStd.Location = new System.Drawing.Point(35, 13);
-            this.label_totalStd.Name = "label_totalStd";
-            this.label_totalStd.Size = new System.Drawing.Size(191, 30);
-            this.label_totalStd.TabIndex = 1;
-            this.label_totalStd.Text = "Total Students :";
             // 
             // panel2
             // 
@@ -557,7 +451,6 @@ namespace PBL3
             this.Load += new System.EventHandler(this.Teacher_Form_Load);
             this.panel_slide.ResumeLayout(false);
             this.panel_scoreSubmenu.ResumeLayout(false);
-            this.panel_stdsubmenu.ResumeLayout(false);
             this.panel_logo.ResumeLayout(false);
             this.panel_logo.PerformLayout();
             this.panel_main.ResumeLayout(false);
@@ -577,10 +470,6 @@ namespace PBL3
         #endregion
 
         private System.Windows.Forms.Panel panel_slide;
-        private System.Windows.Forms.Panel panel_stdsubmenu;
-        private System.Windows.Forms.Button button_stdPrint;
-        private System.Windows.Forms.Button button_manageStd;
-        private System.Windows.Forms.Button button_std;
         private System.Windows.Forms.Panel panel_logo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -596,9 +485,6 @@ namespace PBL3
         private System.Windows.Forms.Label label_cfemale;
         private System.Windows.Forms.Label label_cmale;
         private System.Windows.Forms.ComboBox comboBox_course;
-        private System.Windows.Forms.Label label_femaleStd;
-        private System.Windows.Forms.Label label_maleStd;
-        private System.Windows.Forms.Label label_totalStd;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label_role;
         private System.Windows.Forms.Label label_user;

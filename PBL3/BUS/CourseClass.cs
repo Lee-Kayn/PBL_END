@@ -51,6 +51,24 @@ namespace PBL3
             List<string> result = table.AsEnumerable().Select(n => n.Field<string>(0)).ToList();
             return result;
         }
+        public List<int> getcourseID()
+        {
+            MySqlCommand command = new MySqlCommand("SELECT `CourseId` FROM `course`");
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
+            return result;
+        }
+        public DateTime getTimeEND(int courseID)
+        {
+            MySqlCommand command = new MySqlCommand("SELECT `Date_End` FROM `course` WHERE CourseId='"+courseID+"'", connect.getconnection);
+            connect.openConnect();
+            DateTime END = Convert.ToDateTime(command.ExecuteScalar().ToString());
+            connect.closeConnect();
+            return END;
+        }
 
         //create a update function for course edit
         public bool updateCourse(int id, string cName, string desc)

@@ -261,9 +261,9 @@ namespace PBL3
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::PBL3.Properties.Resources.Class;
-            this.pictureBox2.Location = new System.Drawing.Point(5, 160);
+            this.pictureBox2.Location = new System.Drawing.Point(8, 147);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(934, 460);
+            this.pictureBox2.Size = new System.Drawing.Size(934, 491);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PBL3.BUS;
 using PBL3.GUI.General;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,10 @@ namespace PBL3
     {
         StudentClass student = new StudentClass();
         CourseClass course = new CourseClass();
+        SubjectClass subjectClass = new SubjectClass();
+        ScoreClass scoreClass =new ScoreClass();
         int Flag = 0;
+        int COUNT;
         public MainForm()
         {
             InitializeComponent();
@@ -25,11 +29,49 @@ namespace PBL3
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            List<int> list = course.getcourseID();
+            int count = 0;
+            foreach(int i in list)
+            {
+                DateTime now=DateTime.Now;
+                DateTime end = course.getTimeEND(i);
+                if(now>end)
+                {
+                    TimeSpan value = now-end;
+                    int Day = value.Days;
+                    if(Day<10)
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        
+                        List<int> sub_Id = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID`FROM `subject` WHERE CourseId='"+i+"'"));
+                        foreach(int k in sub_Id)
+                        {
+                            List<int> listscore_ID = scoreClass.getList_ScoreID(new MySqlCommand("SELECT `ScoreId` FROM `sub_stu_sco` WHERE Subject_ID='"+k+"'"));
+                            foreach(int j in listscore_ID)
+                            {
+                                scoreClass.deleteScore(j);
+                            }    
+                            subjectClass.Del_sub_stu_sco(k);
+                            subjectClass.Del_teacher_subject(k);
+                        }
+                        subjectClass.Delete_SUBbyCourseID(i);
+                        course.deletCourse(i);
+                    }    
+                }    
+            }    
             studentCount();
-            //populate the combobox with courses name
-            comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course`"));
-            comboBox_course.DisplayMember = "CourseName";
-            comboBox_course.ValueMember = "CourseName";
+            foreach(string i in subjectClass.getAllSUB(new MySqlCommand("SELECT `subject_Name` FROM `subject`")))
+            {
+                comboBox_course.Items.Add(i);
+            }
+            this.COUNT = count;
+            if (COUNT > 0)
+            {
+                MessageBox.Show("There are " + COUNT + " courses that are overdue. Please check your data and back it up before the course automatically deletes", "Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         //create a function to display student count
@@ -205,6 +247,10 @@ namespace PBL3
         }
         private void comboBox_course_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string sub_name=comboBox_course.Text;
+            string sub_ID = subjectClass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='" + sub_name + "'");
+            label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID+ "' AND Gender='Male'");
+            label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Female'");
             //label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '"+comboBox_course.Text+"' AND student.Gender = 'Male'");
             //label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Female'");
         }

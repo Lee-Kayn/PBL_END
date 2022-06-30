@@ -219,6 +219,7 @@
             this.DataGridView_score.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.DataGridView_score.Location = new System.Drawing.Point(13, 70);
             this.DataGridView_score.Name = "DataGridView_score";
+            this.DataGridView_score.ReadOnly = true;
             this.DataGridView_score.RowHeadersVisible = false;
             this.DataGridView_score.RowHeadersWidth = 62;
             this.DataGridView_score.RowTemplate.Height = 80;
@@ -239,7 +240,7 @@
             this.DataGridView_score.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.DataGridView_score.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.DataGridView_score.ThemeStyle.HeaderStyle.Height = 24;
-            this.DataGridView_score.ThemeStyle.ReadOnly = false;
+            this.DataGridView_score.ThemeStyle.ReadOnly = true;
             this.DataGridView_score.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.DataGridView_score.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.DataGridView_score.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -12,12 +12,14 @@ namespace PBL3
     {
         DBconnect connect = new DBconnect();
         //create a function add score
-        public bool insertScore(int stdid, double exc,double Exam,double Sum, string desc)
+        public bool insertScore(int scoreid, double exc,double Exam,double Sum, string desc)
         {
-            MySqlCommand command = new MySqlCommand("", connect.getconnection);
-            //@stid,@cn,@sco,@desc
-            command.Parameters.Add("@stid", MySqlDbType.Int32).Value = stdid;
+            MySqlCommand command = new MySqlCommand("INSERT INTO `score`(`ScoreId`, `Exercise`, `Exam`, `Summary`, `Description`) VALUES (@scoreid,@exe,@Exam,@Sum,@desc)", connect.getconnection);
 
+            command.Parameters.Add("@scoreid", MySqlDbType.Int32).Value = scoreid;
+            command.Parameters.Add("@exe", MySqlDbType.Float).Value = exc;
+            command.Parameters.Add("@Exam", MySqlDbType.Float).Value = Exam;
+            command.Parameters.Add("@Sum", MySqlDbType.Float).Value = Sum;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
@@ -51,13 +53,12 @@ namespace PBL3
             { return false; }
         }
         // Create A function to edit score data
-        public bool updateScore(int stdid,string scn, double scor, string desc)
+        public bool updateScore(int scoreid, double exe, double exam,double sum, string desc)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE `score` SET `Score`=@sco,`Description`=@desc WHERE `StudentId`=@stid AND `CourseName`=@scn", connect.getconnection);
-            //@stid,@sco,@desc
-            command.Parameters.Add("@scn", MySqlDbType.VarChar).Value = scn;
-            command.Parameters.Add("@stid", MySqlDbType.Int32).Value = stdid;
-            command.Parameters.Add("@sco", MySqlDbType.Double).Value = scor;
+            MySqlCommand command = new MySqlCommand("UPDATE `score` SET `Exercise`=@exe,`Exam`=@exam,`Summary`=@sum,`Description`=@desc WHERE ScoreId='"+scoreid+"'", connect.getconnection);
+            command.Parameters.Add("@exe", MySqlDbType.Double).Value = exe;
+            command.Parameters.Add("@exam", MySqlDbType.Double).Value = exam;
+            command.Parameters.Add("@sum", MySqlDbType.VarChar).Value = sum;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
@@ -71,15 +72,10 @@ namespace PBL3
                 return false;
             }
         }
-        //Create a function to delete a score data
-        public bool deleteScore(int id,string course)
+        public bool update_sub_stu_score(int scoreid,int Sub_ID)
         {
-            MySqlCommand command = new MySqlCommand("DELETE FROM `score` WHERE `StudentId`=@id AND CourseName=@courseName ", connect.getconnection);
-
-            //@id
-            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
-            command.Parameters.Add("@courseName", MySqlDbType.String).Value = course;
-
+            MySqlCommand command = new MySqlCommand("UPDATE `sub_stu_sco` SET `Subject_ID`=@sub_id WHERE ScoreId='"+scoreid+"'", connect.getconnection);
+            command.Parameters.Add("@sub_id", MySqlDbType.Int32).Value = Sub_ID;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {
@@ -91,6 +87,40 @@ namespace PBL3
                 connect.closeConnect();
                 return false;
             }
+        }
+        //Create a function to delete a score data
+        public bool deleteScore(int id)
+        {
+            MySqlCommand command = new MySqlCommand("DELETE FROM `score` WHERE `ScoreId`=@id ", connect.getconnection);
+
+            //@id
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+            connect.openConnect();
+            command.ExecuteNonQuery();
+            connect.closeConnect();
+            return true;
+        }
+        public bool delete_sub_stu_sco(int id)
+        {
+            MySqlCommand command = new MySqlCommand("DELETE FROM `sub_stu_sco` WHERE `ScoreId`=@id ", connect.getconnection);
+
+            //@id
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+            connect.openConnect();
+            command.ExecuteNonQuery();
+            connect.closeConnect();
+            return true;
+        }
+        public List<int> getList_ScoreID(MySqlCommand command)
+        {
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
+            return result;
         }
     }
 }

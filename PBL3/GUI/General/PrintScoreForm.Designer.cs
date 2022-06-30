@@ -36,10 +36,9 @@ namespace PBL3
             this.button_print = new System.Windows.Forms.Button();
             this.DataGridView_score = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox_search = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button_search = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_score)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -105,6 +104,7 @@ namespace PBL3
             this.DataGridView_score.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.DataGridView_score.Location = new System.Drawing.Point(13, 95);
             this.DataGridView_score.Name = "DataGridView_score";
+            this.DataGridView_score.ReadOnly = true;
             this.DataGridView_score.RowHeadersVisible = false;
             this.DataGridView_score.RowHeadersWidth = 62;
             this.DataGridView_score.RowTemplate.Height = 80;
@@ -125,7 +125,7 @@ namespace PBL3
             this.DataGridView_score.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.DataGridView_score.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.DataGridView_score.ThemeStyle.HeaderStyle.Height = 24;
-            this.DataGridView_score.ThemeStyle.ReadOnly = false;
+            this.DataGridView_score.ThemeStyle.ReadOnly = true;
             this.DataGridView_score.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.DataGridView_score.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.DataGridView_score.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -145,14 +145,6 @@ namespace PBL3
             this.label7.TabIndex = 0;
             this.label7.Text = "Team88 Course List";
             // 
-            // textBox_search
-            // 
-            this.textBox_search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox_search.Location = new System.Drawing.Point(628, 58);
-            this.textBox_search.Name = "textBox_search";
-            this.textBox_search.Size = new System.Drawing.Size(170, 37);
-            this.textBox_search.TabIndex = 41;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
@@ -162,21 +154,6 @@ namespace PBL3
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(934, 99);
             this.panel2.TabIndex = 39;
-            // 
-            // button_search
-            // 
-            this.button_search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_search.BackColor = System.Drawing.Color.Cyan;
-            this.button_search.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_search.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_search.ForeColor = System.Drawing.Color.White;
-            this.button_search.Location = new System.Drawing.Point(804, 52);
-            this.button_search.Name = "button_search";
-            this.button_search.Size = new System.Drawing.Size(118, 39);
-            this.button_search.TabIndex = 40;
-            this.button_search.Text = "Search";
-            this.button_search.UseVisualStyleBackColor = false;
-            this.button_search.Click += new System.EventHandler(this.button_search_Click);
             // 
             // panel1
             // 
@@ -190,15 +167,23 @@ namespace PBL3
             this.panel1.Size = new System.Drawing.Size(934, 51);
             this.panel1.TabIndex = 38;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(710, 57);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(190, 38);
+            this.comboBox1.TabIndex = 40;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // PrintScoreForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 613);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.DataGridView_score);
-            this.Controls.Add(this.textBox_search);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.button_search);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -211,7 +196,6 @@ namespace PBL3
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -221,9 +205,8 @@ namespace PBL3
         private System.Windows.Forms.Button button_print;
         private Guna.UI2.WinForms.Guna2DataGridView DataGridView_score;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_search;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button_search;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

@@ -142,9 +142,9 @@ namespace PBL3
         }
 
         //create a function edit for student
-        public bool updateTeacher(int id, string fname, string lname, DateTime bdate, string gender, string phone, string username, string password, string address, string subject, byte[] img)
+        public bool updateTeacher(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE `teacher` SET `Teacher_FN`=@fn,`Teacher_LN`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`username`=@us,`password`=@pass,`Address`=@adr,`Subject`=@sub,`Photo`=@img WHERE  `TeacherId`= @id", connect.getconnection);
+            MySqlCommand command = new MySqlCommand("UPDATE `teacher` SET `Teacher_FN`=@fn,`Teacher_LN`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr,`Photo`=@img WHERE  `TeacherId`= @id", connect.getconnection);
 
             //@id,@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -153,10 +153,7 @@ namespace PBL3
             command.Parameters.Add("@bd", MySqlDbType.Date).Value = bdate;
             command.Parameters.Add("@gd", MySqlDbType.VarChar).Value = gender;
             command.Parameters.Add("@ph", MySqlDbType.VarChar).Value = phone;
-            command.Parameters.Add("@us", MySqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = password;
             command.Parameters.Add("@adr", MySqlDbType.VarChar).Value = address;
-            command.Parameters.Add("@sub", MySqlDbType.VarChar).Value = subject;
             command.Parameters.Add("@img", MySqlDbType.Blob).Value = img;
 
             connect.openConnect();
@@ -172,9 +169,9 @@ namespace PBL3
             }
 
         }
-        public bool updateTeacher_Non(int id, string fname, string lname, DateTime bdate, string gender, string phone, string user, string pass, string address)
+        public bool updateTeacher_Non(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE `teacher` SET `Teacher_FN`=@fn,`Teacher_LN`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`username`=@us,`password`=@pass,`Address`=@adr WHERE  `TeacherId`= @id", connect.getconnection);
+            MySqlCommand command = new MySqlCommand("UPDATE `teacher` SET `Teacher_FN`=@fn,`Teacher_LN`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr WHERE  `TeacherId`= @id", connect.getconnection);
 
             //@id,@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -183,8 +180,6 @@ namespace PBL3
             command.Parameters.Add("@bd", MySqlDbType.Date).Value = bdate;
             command.Parameters.Add("@gd", MySqlDbType.VarChar).Value = gender;
             command.Parameters.Add("@ph", MySqlDbType.VarChar).Value = phone;
-            command.Parameters.Add("@us", MySqlDbType.VarChar).Value = user;
-            command.Parameters.Add("@pass", MySqlDbType.VarChar).Value = pass;
             command.Parameters.Add("@adr", MySqlDbType.VarChar).Value = address;
 
             connect.openConnect();
@@ -210,16 +205,21 @@ namespace PBL3
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
-            if (command.ExecuteNonQuery() == 1)
-            {
-                connect.closeConnect();
-                return true;
-            }
-            else
-            {
-                connect.closeConnect();
-                return false;
-            }
+            command.ExecuteNonQuery();
+            return true;
+            
+
+        }
+        public bool deleteTeacher_SUB(int id)
+        {
+            MySqlCommand command = new MySqlCommand("DELETE FROM `teacher_subject` WHERE `Subject_ID`=@id", connect.getconnection);
+
+            //@id
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+            connect.openConnect();
+            command.ExecuteNonQuery();
+            return true;
 
         }
         // create a function for any command in studentDb
