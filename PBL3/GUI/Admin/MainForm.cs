@@ -73,11 +73,8 @@ namespace PBL3
                 MessageBox.Show("There are " + COUNT + " courses that are overdue. Please check your data and back it up before the course automatically deletes", "Expired", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        //create a function to display student count
         private void studentCount()
         {
-            //Display the values
             label_totalStd.Text = "Total Students : " + student.totalStudent();
             label_maleStd.Text = "Male : " + student.maleStudent();
             label_femaleStd.Text = "Female : " + student.femaleStudent();
@@ -150,27 +147,18 @@ namespace PBL3
         private void button_newCourse_Click(object sender, EventArgs e)
         {
             openChildForm(new CourseForm());
-            //...
-            //..Your code
-            //...
             hideSubmenu();
         }
 
         private void button_manageCourse_Click(object sender, EventArgs e)
         {
             openChildForm(new ManageCourseForm());
-            //...
-            //..Your code
-            //...
             hideSubmenu();
         }
 
         private void button_coursePrint_Click(object sender, EventArgs e)
         {
             openChildForm(new PrintCourseForm());
-            //...
-            //..Your code
-            //...
             hideSubmenu();
         }
         #endregion CourseSubmenu
@@ -183,16 +171,12 @@ namespace PBL3
         private void button_newScore_Click(object sender, EventArgs e)
         {
             openChildForm(new Subject_Form());
-            //...
-            //..Your code
-            //...
             hideSubmenu();
         }
 
         private void button_manageScore_Click(object sender, EventArgs e)
         {
             openChildForm(new Manage_Subject());
-            
             hideSubmenu();
         }
 
@@ -229,7 +213,6 @@ namespace PBL3
         }
         #endregion Teacher
 
-        //to show register form in mainform
         private Form activeForm = null;
         private void openChildForm(Form childForm)
         {
@@ -251,8 +234,6 @@ namespace PBL3
             string sub_ID = subjectClass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='" + sub_name + "'");
             label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID+ "' AND Gender='Male'");
             label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Female'");
-            //label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '"+comboBox_course.Text+"' AND student.Gender = 'Male'");
-            //label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Female'");
         }
 
         private void but_exit_Click(object sender, EventArgs e)

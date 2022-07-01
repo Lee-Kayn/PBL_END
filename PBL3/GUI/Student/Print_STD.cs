@@ -29,7 +29,6 @@ namespace PBL3
 
         private void button_print_Click(object sender, EventArgs e)
         {
-            //We need DGVprinter helper for print pdf file
             printer.Title = "Team88 Student score list";
             printer.SubTitle = string.Format("Date: {0}", DateTime.Now.Date);
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
@@ -47,7 +46,6 @@ namespace PBL3
         {
             showScore();
         }
-        //to show score list
         public void showScore()
         {
             string userID=userClass.exeCount("SELECT `UserID` FROM `user` WHERE username='"+user+"' AND password='"+pass+"'");

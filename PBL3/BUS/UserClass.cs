@@ -68,7 +68,6 @@ namespace PBL3.BUS
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `user` WHERE UserID=@id", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();

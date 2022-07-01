@@ -61,7 +61,6 @@ namespace PBL3
         }
         private void showData()
         {
-            //to show course list on datagridview
             DataGridView_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course`"));
         }
     }

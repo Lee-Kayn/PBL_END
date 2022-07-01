@@ -187,12 +187,6 @@ namespace PBL3
                 comboBox2.Items.Add(i);
             }
             comboBox2.SelectedIndex = 0;
-            //comboBox2.Items.Clear();
-            //string name_course = comboBox1.SelectedItem.ToString();
-            //string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
-            //comboBox2.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
-            //comboBox2.DisplayMember = "Subject_Name";
-            //comboBox2.ValueMember = "Subject_Name";
         }
     }
 }

@@ -28,10 +28,8 @@ namespace PBL3
             showData();
 
         }
-        // Show data of the course 
         private void showData()
         {
-            //to show course list on datagridview
             if(teacher.Flag==0)
                 DataGridView_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course`"));
             else 
@@ -122,7 +120,6 @@ namespace PBL3
 
         private void button_search_Click(object sender, EventArgs e)
         {
-            //To Search course and show on datagridview
             DataGridView_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course` WHERE CONCAT(`CourseName`)LIKE '%"+textBox_search.Text+"%'"));
             textBox_search.Clear();
         }

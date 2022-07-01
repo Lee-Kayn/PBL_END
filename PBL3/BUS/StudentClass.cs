@@ -11,13 +11,11 @@ namespace PBL3
     class StudentClass
     {
         DBconnect connect = new DBconnect();
-        //create a function to add a new students to the database
 
         public bool insertStudent(string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img,int id)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `student`(`StdFirstName`, `StdLastName`, `Birthdate`, `Gender`, `Phone`, `Address`, `Photo`,`UserID`) VALUES(@fn, @ln, @bd, @gd, @ph, @adr, @img,@id)", connect.getconnection);
 
-            //@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = fname;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = lname;
             command.Parameters.Add("@bd", MySqlDbType.Date).Value = bdate;
@@ -40,7 +38,6 @@ namespace PBL3
             }
 
         }
-        // to get student table
         public DataTable getStudentlist(MySqlCommand command)
         {
             command.Connection = connect.getconnection;
@@ -58,7 +55,6 @@ namespace PBL3
             List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
             return result;
         }
-        // Create a function to execute the count query(total, male , female)
         public string exeCount(string query)
         {
             MySqlCommand command = new MySqlCommand(query, connect.getconnection);
@@ -67,17 +63,17 @@ namespace PBL3
             connect.closeConnect();
             return count;
         }
-        //to get the total student
+
         public string totalStudent()
         {
             return exeCount("SELECT COUNT(*) FROM student");
         }
-        // to get the male student count
+
         public string maleStudent()
         {
             return exeCount("SELECT COUNT(*) FROM student WHERE `Gender`='Male'");
         }
-        // to get the female student count
+
         public string femaleStudent()
         {
             return exeCount("SELECT COUNT(*) FROM student WHERE `Gender`='Female'");
@@ -99,7 +95,7 @@ namespace PBL3
         {
             return exeCount("SELECT  `StdFirstName` FROM `student` WHERE UserID='" + userID + "'") + " " + exeCount("SELECT  `StdLastName` FROM `student` WHERE UserID='" + userID + "'");
         }
-        //create a function search for student (first name, last name, address)
+
         public DataTable searchStudent(string searchdata)
         {
             MySqlCommand command = new MySqlCommand("SELECT * FROM `student` WHERE CONCAT(`StdFirstName`,`StdLastName`,`Address`) LIKE '%" + searchdata + "%'", connect.getconnection);
@@ -108,12 +104,10 @@ namespace PBL3
             adapter.Fill(table);
             return table;
         }
-        //create a function edit for student
         public bool updateStudent(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `student` SET `StdFirstName`=@fn,`StdLastName`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr,`Photo`=@img WHERE  `StdId`= @id", connect.getconnection);
 
-            //@id,@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = fname;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = lname;
@@ -140,7 +134,6 @@ namespace PBL3
         {
             MySqlCommand command = new MySqlCommand("UPDATE `student` SET `StdFirstName`=@fn,`StdLastName`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr WHERE  `StdId`= @id", connect.getconnection);
 
-            //@id,@fn, @ln, @bd, @gd, @ph, @adr, @img
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             command.Parameters.Add("@fn", MySqlDbType.VarChar).Value = fname;
             command.Parameters.Add("@ln", MySqlDbType.VarChar).Value = lname;
@@ -162,13 +155,11 @@ namespace PBL3
             }
 
         }
-        //Create a function to delete data
-        //we need only id 
+
         public bool deleteStudent(int id)
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `student` WHERE `StdId`=@id", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
@@ -181,7 +172,6 @@ namespace PBL3
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `user` WHERE `UserID`=@id", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
@@ -194,7 +184,6 @@ namespace PBL3
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `sub_stu_sco` WHERE `StdId`=@id", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
@@ -203,7 +192,6 @@ namespace PBL3
             return true;
 
         }
-        // create a function for any command in studentDb
         public DataTable getList(MySqlCommand command)
         {
             command.Connection = connect.getconnection;

@@ -32,11 +32,9 @@ namespace PBL3
 
         private void Teacher_Form_Load(object sender, EventArgs e)
         {
-            //studentCount();
             string userID=teacher.getUserID(user,pass);
             int TeacherID = Convert.ToInt32(teacher.getTeacherID(userID));
             label_user.Text = teacher.welcome(userID);
-            ////populate the combobox with courses name
             List<int> listSub = subjectClass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='"+TeacherID+"'"));
             foreach(int i in listSub)
             {
@@ -49,14 +47,11 @@ namespace PBL3
 
         private void customizeDesign()
         {
-            //panel_stdsubmenu.Visible = false;
             panel_scoreSubmenu.Visible = false;
         }
 
         private void hideSubmenu()
         {
-            //if (panel_stdsubmenu.Visible == true)
-            //    panel_stdsubmenu.Visible = false;
             if (panel_scoreSubmenu.Visible == true)
                 panel_scoreSubmenu.Visible = false;
         }
@@ -74,7 +69,6 @@ namespace PBL3
 
         private void button_std_Click(object sender, EventArgs e)
         {
-            //showSubmenu(panel_stdsubmenu);
         }
         #region StdSubmenu
 
@@ -102,16 +96,12 @@ namespace PBL3
         private void button_newScore_Click(object sender, EventArgs e)
         {
             openChildForm(new ScoreForm(user,pass));
-            //...
-            //..Your code
-            //...
             hideSubmenu();
         }
 
         private void button_manageScore_Click(object sender, EventArgs e)
         {
             openChildForm(new ManageScoreForm(user,pass));
-
             hideSubmenu();
         }
 
@@ -145,8 +135,6 @@ namespace PBL3
             string sub_ID = subjectClass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='" + sub_name + "'");
             label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Male'");
             label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM `student`,sub_stu_sco WHERE student.StdId=sub_stu_sco.StdId AND sub_stu_sco.Subject_ID='" + sub_ID + "' AND Gender='Female'");
-            //label_cmale.Text = "Male : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Male'");
-            //label_cfemale.Text = "Female : " + student.exeCount("SELECT COUNT(*) FROM student INNER JOIN score ON score.StudentId = student.StdId WHERE score.CourseName = '" + comboBox_course.Text + "' AND student.Gender = 'Female'");
         }
 
         private void but_exit_Click(object sender, EventArgs e)

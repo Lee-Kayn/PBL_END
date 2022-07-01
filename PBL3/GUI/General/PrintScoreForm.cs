@@ -30,7 +30,6 @@ namespace PBL3
 
         private void button_print_Click(object sender, EventArgs e)
         {
-            //We need DGVprinter helper for print pdf file
             printer.Title = "Team88 Student score list";
             printer.SubTitle = string.Format("Date: {0}", DateTime.Now);
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;
@@ -60,7 +59,6 @@ namespace PBL3
             comboBox1.SelectedIndex = 0;
             DataGridView_score.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + listSub[0] + "'"));
         }
-        //to show score list
         public void showScore()
         {
             string userID = teacher.getUserID(user, pass);

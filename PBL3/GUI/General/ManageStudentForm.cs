@@ -24,17 +24,7 @@ namespace PBL3
         public ManageStudentForm()
         {
             InitializeComponent();
-            //getcbbcourse();
         }
-        //public void getcbbcourse()
-        //{
-        //    foreach (string i in course.getListCourse(new MySqlCommand("SELECT `CourseName` FROM `course`")))
-        //    {
-        //        cbb_course.Items.Add(i);
-        //    }
-        //    cbb_course.SelectedIndex = 0;
-        //}
-
         private void ManageStudentForm_Load(object sender, EventArgs e)
         {
             showTable();
@@ -196,15 +186,5 @@ namespace PBL3
                 button_clear.PerformClick();
             }
         }
-
-        //private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    cbb_sub.Items.Clear();
-        //    string name_course = cbb_course.SelectedItem.ToString();
-        //    string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
-        //    cbb_sub.DataSource = subject.getListSUB(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'"));
-        //    cbb_sub.DisplayMember = "Subject_Name";
-        //    cbb_sub.ValueMember = "Subject_Name";
-        //}
     }
 }

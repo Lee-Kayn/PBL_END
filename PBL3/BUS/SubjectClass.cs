@@ -39,7 +39,7 @@ namespace PBL3.BUS
         public bool insertSubject(string sName, int couseID,string desc)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `subject`( `subject_Name`, `CourseId`, `Description`) VALUES (@sn,@cid,@desc)", connect.getconnection);
-            //@cn,@ch,@desc
+
             command.Parameters.Add("@sn", MySqlDbType.VarChar).Value = sName;
             command.Parameters.Add("@cid", MySqlDbType.VarChar).Value = couseID;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;

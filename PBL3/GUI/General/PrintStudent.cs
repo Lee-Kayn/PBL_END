@@ -26,21 +26,17 @@ namespace PBL3
         {
             showData(new MySqlCommand("SELECT * FROM `student`"));
         }
-
-        // create a function to show the student list in datagridview
         public void showData(MySqlCommand command)
         {
             DataGridView_student.ReadOnly = true;
             DataGridViewImageColumn imageColumn = new DataGridViewImageColumn();
             DataGridView_student.DataSource = student.getList(command);
-            // column 7 is the image column index
             imageColumn = (DataGridViewImageColumn)DataGridView_student.Columns[7];
             imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
         }
 
         private void button_search_Click(object sender, EventArgs e)
         {
-            //check the radio button
             string selectQuery;
             if (radioButton_all.Checked)
             {
@@ -59,7 +55,6 @@ namespace PBL3
 
         private void button_print_Click(object sender, EventArgs e)
         {
-            //We need DGVprinter helper for print pdf file
             printer.Title = "Team88 School Students list";
             printer.SubTitle = string.Format("Date: {0}", DateTime.Now.Date);
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;

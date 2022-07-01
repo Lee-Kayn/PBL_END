@@ -26,8 +26,6 @@ namespace PBL3
         {
             showData(new MySqlCommand("SELECT * FROM `teacher`"));
         }
-
-        // create a function to show the student list in datagridview
         public void showData(MySqlCommand command)
         {
             DataGridView_student.ReadOnly = true;
@@ -39,7 +37,6 @@ namespace PBL3
 
         private void button_search_Click(object sender, EventArgs e)
         {
-            //check the radio button
             string selectQuery;
             if (radioButton_all.Checked)
             {

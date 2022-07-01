@@ -11,7 +11,7 @@ namespace PBL3
     class ScoreClass
     {
         DBconnect connect = new DBconnect();
-        //create a function add score
+
         public bool insertScore(int scoreid, double exc,double Exam,double Sum, string desc)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `score`(`ScoreId`, `Exercise`, `Exam`, `Summary`, `Description`) VALUES (@scoreid,@exe,@Exam,@Sum,@desc)", connect.getconnection);
@@ -33,7 +33,7 @@ namespace PBL3
                 return false;
             }
         }
-        //create a functon to get list
+
         public DataTable getList(MySqlCommand command)
         {
             command.Connection = connect.getconnection;
@@ -43,7 +43,6 @@ namespace PBL3
             return table;
         }
 
-        // create a function to check already course score
         public bool checkScore(int stdId, string Sub_ID)
         {
             DataTable table = getList(new MySqlCommand("SELECT * FROM `sub_stu_sco` WHERE `StdId`= " + stdId + " AND `Subject_ID`= '" + Sub_ID + "'"));
@@ -52,7 +51,7 @@ namespace PBL3
             else
             { return false; }
         }
-        // Create A function to edit score data
+
         public bool updateScore(int scoreid, double exe, double exam,double sum, string desc)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `score` SET `Exercise`=@exe,`Exam`=@exam,`Summary`=@sum,`Description`=@desc WHERE ScoreId='"+scoreid+"'", connect.getconnection);
@@ -88,12 +87,11 @@ namespace PBL3
                 return false;
             }
         }
-        //Create a function to delete a score data
+
         public bool deleteScore(int id)
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `score` WHERE `ScoreId`=@id ", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();
@@ -105,7 +103,6 @@ namespace PBL3
         {
             MySqlCommand command = new MySqlCommand("DELETE FROM `sub_stu_sco` WHERE `ScoreId`=@id ", connect.getconnection);
 
-            //@id
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             connect.openConnect();

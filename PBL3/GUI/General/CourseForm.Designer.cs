@@ -166,7 +166,7 @@ namespace PBL3
             this.DataGridView_course.DefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridView_course.EnableHeadersVisualStyles = false;
             this.DataGridView_course.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.DataGridView_course.Location = new System.Drawing.Point(13, 57);
+            this.DataGridView_course.Location = new System.Drawing.Point(3, 54);
             this.DataGridView_course.Name = "DataGridView_course";
             this.DataGridView_course.ReadOnly = true;
             this.DataGridView_course.RowHeadersVisible = false;

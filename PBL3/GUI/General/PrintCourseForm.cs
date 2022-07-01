@@ -23,7 +23,6 @@ namespace PBL3
 
         private void button_search_Click(object sender, EventArgs e)
         {
-            //To Search course and show on datagridview
             DataGridView_student.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course` WHERE CONCAT(`CourseName`)LIKE '%" + textBox_search.Text + "%'"));
             textBox_search.Clear();
         }
@@ -35,7 +34,6 @@ namespace PBL3
 
         private void button_print_Click(object sender, EventArgs e)
         {
-            //We need DGVprinter helper for print pdf file
             printer.Title = "Team88 Course list";
             printer.SubTitle = string.Format("Date: {0}", DateTime.Now.Date);
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit | StringFormatFlags.NoClip;

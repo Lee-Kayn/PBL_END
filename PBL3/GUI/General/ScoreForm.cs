@@ -26,7 +26,6 @@ namespace PBL3
             this.user = user;
             this.pass = pass;
         }
-        //create a function to show data on datagridview score
         private void showScoe()
         {
             string userID = teacher.getUserID(user, pass);
@@ -61,13 +60,6 @@ namespace PBL3
                 comboBox_course.SelectedIndex = 0;
                 DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));
             }    
-            //comboBox_course.DataSource = course.getCourse(new MySqlCommand("SELECT * FROM `course` where CourseName='" + teacher.getSubject() + "'"));
-            //comboBox_course.DisplayMember = "CourseName";
-            //comboBox_course.ValueMember = "CourseName";
-            // to show data on score datagridview
-
-            //To Display the student list on Datagridview
-            //DataGridView_student.DataSource = student.getList(new MySqlCommand("SELECT `StdId`,`StdFirstName`,`StdLastName` FROM `student` INNER JOIN score ON score.StudentId=student.StdId where score.CourseName='" + teacher.getSubject() + "'"));
         }
 
         private void button_add_Click(object sender, EventArgs e)
