@@ -16,6 +16,7 @@ namespace PBL3.GUI.General
     {
         SubjectClass subject = new SubjectClass();
         CourseClass course = new CourseClass();
+        TeacherClass teacher = new TeacherClass();
         public Subject_Form()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace PBL3.GUI.General
         {
             showData();
             getcbbcourse();
-
+            getcbbteacher_ID();
         }
         private void showData()
         {
@@ -41,6 +42,15 @@ namespace PBL3.GUI.General
             comboBox1.SelectedIndex = 0;
 
         }
+        public void getcbbteacher_ID()
+        {
+            foreach (int i in teacher.getcbbTeacher_ID())
+            {
+                comboBox2.Items.Add(i);
+            }
+            comboBox2.SelectedIndex = 0;
+
+        }
 
         private void button_clear_Click(object sender, EventArgs e)
         {
@@ -53,6 +63,7 @@ namespace PBL3.GUI.General
         {
             string courseName = comboBox1.SelectedItem.ToString();
             int courseID=Convert.ToInt32(course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='"+courseName+"'"));
+            int teacherid = Convert.ToInt32(comboBox2.SelectedItem.ToString());
             if (textBox_Cname.Text == "" || textBox_description.Text == "")
             {
                 MessageBox.Show("Need Course data", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -63,9 +74,13 @@ namespace PBL3.GUI.General
                 string subjectName = textBox_Cname.Text;
                 if (subject.insertSubject(subjectName, courseID, desc))
                 {
-                    showData();
-                    button_clear.PerformClick();
-                    MessageBox.Show("New course inserted", "Add Course", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int subid = Convert.ToInt32(subject.exeCount("SELECT `Subject_ID` FROM `subject` WHERE subject_Name='"+subjectName+"' AND CourseId='"+courseID+"'"));
+                    if(subject.insertSubject_teacher(teacherid,subid))
+                    {
+                        showData();
+                        button_clear.PerformClick();
+                        MessageBox.Show("New subject inserted", "Add Course", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }    
 
                 }
                 else

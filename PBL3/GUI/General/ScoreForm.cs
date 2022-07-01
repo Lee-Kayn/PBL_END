@@ -53,9 +53,14 @@ namespace PBL3
                 foreach (int i in listSub)
                 {
                     string courseID = subjectClass.exeCount("SELECT `CourseId` FROM `subject` WHERE Subject_ID='" + i + "'");
-                    string couerseName = course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='" + courseID + "'");
-                    listCourse.Add(couerseName);
-                    comboBox_course.Items.Add(couerseName);
+                    string couerseName;
+                    int C = Convert.ToInt32(course.exeCount("SELECT COUNT(*) FROM `course` WHERE CourseId='" + courseID + "' AND Date_End>CURRENT_TIMESTAMP()"));
+                    if(C>0)
+                    {
+                        couerseName = course.exeCount("SELECT `CourseName` FROM `course` WHERE CourseId='" + courseID + "'");
+                        listCourse.Add(couerseName);
+                        comboBox_course.Items.Add(couerseName);
+                    }
                 }
                 comboBox_course.SelectedIndex = 0;
                 DataGridView_student.DataSource = score.getList(new MySqlCommand("SELECT sub_stu_sco.`ScoreId`, `StdId`, `Subject_ID`,score.Exercise,score.Exam,score.Summary,score.Description FROM `sub_stu_sco`,score WHERE score.ScoreId=sub_stu_sco.ScoreId AND sub_stu_sco.Subject_ID='" + SubID + "'"));

@@ -130,7 +130,16 @@ namespace PBL3
             adapter.Fill(table);
             return table;
         }
-
+        public List<int> getcbbTeacher_ID()
+        {
+            MySqlCommand command = new MySqlCommand("SELECT `TeacherId` FROM `teacher`");
+            command.Connection = connect.getconnection;
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataTable table = new DataTable();
+            adapter.Fill(table);
+            List<int> result = table.AsEnumerable().Select(n => n.Field<int>(0)).ToList();
+            return result;
+        }
         public bool updateTeacher(int id, string fname, string lname, DateTime bdate, string gender, string phone, string address, byte[] img)
         {
             MySqlCommand command = new MySqlCommand("UPDATE `teacher` SET `Teacher_FN`=@fn,`Teacher_LN`=@ln,`Birthdate`=@bd,`Gender`=@gd,`Phone`=@ph,`Address`=@adr,`Photo`=@img WHERE  `TeacherId`= @id", connect.getconnection);

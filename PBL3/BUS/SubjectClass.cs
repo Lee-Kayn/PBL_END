@@ -55,6 +55,24 @@ namespace PBL3.BUS
                 return false;
             }
         }
+        public bool insertSubject_teacher(int teacherid,int subjectid)
+        {
+            MySqlCommand command = new MySqlCommand("INSERT INTO `teacher_subject`( `TeacherId`, `Subject_ID`) VALUES (@teacherid,@subid)", connect.getconnection);
+
+            command.Parameters.Add("@teacherid", MySqlDbType.Int32).Value = teacherid;
+            command.Parameters.Add("@subid", MySqlDbType.Int32).Value = subjectid;
+            connect.openConnect();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                connect.closeConnect();
+                return true;
+            }
+            else
+            {
+                connect.closeConnect();
+                return false;
+            }
+        }
         public List<int> getListSub(MySqlCommand command)
         {
             command.Connection = connect.getconnection;
@@ -182,6 +200,26 @@ namespace PBL3.BUS
             command.Parameters.Add("@subname", MySqlDbType.VarChar).Value = sub_name;
             command.Parameters.Add("@courseid", MySqlDbType.Int32).Value = courseID;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
+            connect.openConnect();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                connect.closeConnect();
+                return true;
+            }
+            else
+            {
+                connect.closeConnect();
+                return false;
+            }
+        }
+        public string count_Sub(string query)
+        {
+            return exeCount(query);
+        }
+        public bool update_Teacher_Sub(int teacherid,int subid)
+        {
+            MySqlCommand command = new MySqlCommand("UPDATE `teacher_subject` SET `TeacherId`=@teachid WHERE Subject_ID='"+subid+"'", connect.getconnection);
+            command.Parameters.Add("@teachid", MySqlDbType.Int32).Value = teacherid;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {

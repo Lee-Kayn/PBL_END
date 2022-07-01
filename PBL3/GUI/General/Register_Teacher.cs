@@ -43,11 +43,10 @@ namespace PBL3
             comboBox2.Items.Clear();
             string name_course = comboBox1.SelectedItem.ToString();
             string ID_course = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + name_course + "'");
-            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `Subject_Name` FROM `subject` WHERE CourseId='" + ID_course + "'")))
+            foreach (string i in course.getListCourse(new MySqlCommand("SELECT subject.subject_Name FROM `subject` LEFT JOIN teacher_subject ON subject.Subject_ID=teacher_subject.Subject_ID WHERE subject.CourseId='"+ID_course+"' AND ((teacher_subject.Subject_ID) Is Null)")))
             {
                 comboBox2.Items.Add(i);
             }
-            comboBox2.SelectedIndex = 0;
         }
         public void showTable()
         {
@@ -108,9 +107,9 @@ namespace PBL3
 
             int born_year = dateTimePicker1.Value.Year;
             int this_year = DateTime.Now.Year;
-            if ((this_year - born_year) < 10 || (this_year - born_year) > 100)
+            if ((this_year - born_year) < 18 || (this_year - born_year) > 100)
             {
-                MessageBox.Show("The student age must be between 10 and 100", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The teacher age must be between 18 and 100", "Invalid Birthdate", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (verify())
             {

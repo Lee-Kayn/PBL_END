@@ -19,6 +19,7 @@ namespace PBL3
         CourseClass course = new CourseClass();
         UserClass user = new UserClass();
         SubjectClass subjectclass = new SubjectClass();
+        int Teacher_ID;
         public ManageTeacher()
         {
             InitializeComponent();
@@ -51,6 +52,7 @@ namespace PBL3
                 try
                 {
                     textBox_id.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
+                    Teacher_ID = Convert.ToInt32(textBox_id.Text);
                     textBox_Fname.Text = DataGridView_student.CurrentRow.Cells[1].Value.ToString();
                     textBox_Lname.Text = DataGridView_student.CurrentRow.Cells[2].Value.ToString();
 
@@ -197,13 +199,19 @@ namespace PBL3
         private void cbb_course_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox2.Items.Clear();
+            comboBox2.Text = "";
             string courseName = comboBox1.SelectedItem.ToString();
             string courseID = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + courseName + "'");
-            foreach (string i in course.getListCourse(new MySqlCommand("SELECT `subject_Name`FROM `subject` WHERE CourseId='"+courseID+"'")))
+            List<int> subID = subjectclass.getListSub(new MySqlCommand("SELECT `Subject_ID` FROM `teacher_subject` WHERE TeacherId='" + Teacher_ID + "'"));
+            foreach (int i in subID)
             {
-                comboBox2.Items.Add(i);
+                if(Convert.ToInt32(subjectclass.count_Sub("SELECT COUNT(*) FROM `subject` WHERE Subject_ID='" + i + "' AND CourseId='" + courseID + "'")) > 0)
+                {
+                    string Sub_Name = subjectclass.exeCount("SELECT `subject_Name` FROM `subject` WHERE Subject_ID='" + i + "' AND CourseId='" + courseID + "'");
+                    comboBox2.Items.Add(Sub_Name);
+                    comboBox2.SelectedIndex = 0;
+                }
             }
-            comboBox2.SelectedIndex = 0;
         }
     }
 }

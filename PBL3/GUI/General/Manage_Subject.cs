@@ -31,6 +31,7 @@ namespace PBL3.GUI.General
         {
              DataGridView_course.DataSource = subject.getuSbject(new MySqlCommand("SELECT `Subject_ID`, `subject_Name`,course.CourseName, subject.`Description` FROM `subject`,course WHERE course.CourseId=subject.CourseId"));
              getcbbcourse();
+             getcbb_teacherID();
         }
         public void getcbbcourse()
         {
@@ -39,6 +40,15 @@ namespace PBL3.GUI.General
                 comboBox1.Items.Add(i);
             }
             comboBox1.SelectedIndex = 0;
+
+        }
+        public void getcbb_teacherID()
+        {
+            foreach (int i in teacherClass.getcbbTeacher_ID())
+            {
+                comboBox2.Items.Add(i);
+            }
+            comboBox2.SelectedIndex = 0;
 
         }
         private void DataGridView_course_Click(object sender, EventArgs e)
@@ -63,6 +73,7 @@ namespace PBL3.GUI.General
                         }
                     }
                     textBox_description.Text = DataGridView_course.CurrentRow.Cells[3].Value.ToString();
+                    comboBox2.Text=teacherClass.exeCount("SELECT `TeacherId` FROM `teacher_subject` WHERE Subject_ID='"+textBox_id.Text+"'");
                 }
                 catch (Exception exx)
                 {
@@ -78,6 +89,7 @@ namespace PBL3.GUI.General
             textBox_Cname.Clear();
             textBox_description.Clear();
             comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
         }
 
         private void button_search_Click(object sender, EventArgs e)
@@ -92,10 +104,11 @@ namespace PBL3.GUI.General
             string course_name=comboBox1.SelectedItem.ToString();
             int courseID = Convert.ToInt32(course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='"+course_name+"'"));
             string desc = textBox_description.Text;
-            if(subject.update_SUBJECT(ID, sub_name, courseID, desc))
+            int teacherID = Convert.ToInt32(comboBox2.SelectedItem.ToString());
+            if(subject.update_SUBJECT(ID, sub_name, courseID, desc)&&subject.update_Teacher_Sub(teacherID,ID))
             {
                 showData();
-                MessageBox.Show("Student data update", "Update Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Subject data update", "Update Subject", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 button_clear.PerformClick();
             }  
         }
