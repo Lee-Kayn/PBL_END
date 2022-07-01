@@ -68,13 +68,15 @@ namespace PBL3
             return END;
         }
 
-        public bool updateCourse(int id, string cName, string desc)
+        public bool updateCourse(int id, string cName,DateTime start,DateTime end, string desc)
         {
-            MySqlCommand command = new MySqlCommand("UPDATE `course` SET`CourseName`=@c,`Description`=@desc WHERE  `CourseId`=@id", connect.getconnection);
+            MySqlCommand command = new MySqlCommand("UPDATE `course` SET`CourseName`=@cn,`Date_Start`=@start, `Date_End`=@end,`Description`=@desc WHERE  `CourseId`=@id", connect.getconnection);
             //@id,@cn,@ch,@desc
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
             command.Parameters.Add("@cn", MySqlDbType.VarChar).Value = cName;
             command.Parameters.Add("@desc", MySqlDbType.VarChar).Value = desc;
+            command.Parameters.Add("@start", MySqlDbType.DateTime).Value = start;
+            command.Parameters.Add("@end", MySqlDbType.DateTime).Value = end;
             connect.openConnect();
             if (command.ExecuteNonQuery() == 1)
             {

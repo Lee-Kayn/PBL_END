@@ -134,16 +134,24 @@ namespace PBL3
 
         private void DataGridView_course_Click(object sender, EventArgs e)
         {
-            try
+            if(DataGridView_score.DataSource == null)
             {
-                textBox_stdId.Text = DataGridView_score.CurrentRow.Cells[1].Value.ToString();
-                txt_scroreID.Text = DataGridView_score.CurrentRow.Cells[0].Value.ToString();
-                textBox_score.Text = DataGridView_score.CurrentRow.Cells[3].Value.ToString();
-                txt_exam.Text= DataGridView_score.CurrentRow.Cells[4].Value.ToString();
-                textBox_description.Text = DataGridView_score.CurrentRow.Cells[6].Value.ToString();
-            } catch
+                DataGridView_score.Enabled = false;
+            }
+            else
             {
-                MessageBox.Show("None Data", "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                try
+                {
+                    textBox_stdId.Text = DataGridView_score.CurrentRow.Cells[1].Value.ToString();
+                    txt_scroreID.Text = DataGridView_score.CurrentRow.Cells[0].Value.ToString();
+                    textBox_score.Text = DataGridView_score.CurrentRow.Cells[3].Value.ToString();
+                    txt_exam.Text = DataGridView_score.CurrentRow.Cells[4].Value.ToString();
+                    textBox_description.Text = DataGridView_score.CurrentRow.Cells[6].Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 

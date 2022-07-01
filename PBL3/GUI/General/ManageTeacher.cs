@@ -42,23 +42,40 @@ namespace PBL3
         }
         private void DataGridView_teacher_Click(object sender, EventArgs e)
         {
-            textBox_id.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
-            textBox_Fname.Text = DataGridView_student.CurrentRow.Cells[1].Value.ToString();
-            textBox_Lname.Text = DataGridView_student.CurrentRow.Cells[2].Value.ToString();
+            if (DataGridView_student.DataSource == null)
+            {
+                DataGridView_student.Enabled = false;
+            }
+            else
+            {
+                try
+                {
+                    textBox_id.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
+                    textBox_Fname.Text = DataGridView_student.CurrentRow.Cells[1].Value.ToString();
+                    textBox_Lname.Text = DataGridView_student.CurrentRow.Cells[2].Value.ToString();
 
-            dateTimePicker1.Value = (DateTime)DataGridView_student.CurrentRow.Cells[3].Value;
-            if (DataGridView_student.CurrentRow.Cells[4].Value.ToString() == "Male")
-                radioButton_male.Checked = true;
+                    dateTimePicker1.Value = (DateTime)DataGridView_student.CurrentRow.Cells[3].Value;
+                    if (DataGridView_student.CurrentRow.Cells[4].Value.ToString() == "Male")
+                        radioButton_male.Checked = true;
 
-            textBox_phone.Text = DataGridView_student.CurrentRow.Cells[5].Value.ToString();
-            textBox_address.Text = DataGridView_student.CurrentRow.Cells[6].Value.ToString();
-            comboBox1.ResetText();
-            byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[8].Value;
-            MemoryStream ms = new MemoryStream(img);
-            pictureBox_student.Image = Image.FromStream(ms);
-            int ID = Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
-            txtusername.Text = user.getUsername(ID);
-            txtpassword.Text = user.getPassword(ID);
+                    textBox_phone.Text = DataGridView_student.CurrentRow.Cells[5].Value.ToString();
+                    textBox_address.Text = DataGridView_student.CurrentRow.Cells[6].Value.ToString();
+                    comboBox1.ResetText();
+                    byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[8].Value;
+                    MemoryStream ms = new MemoryStream(img);
+                    pictureBox_student.Image = Image.FromStream(ms);
+                    int ID = Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
+                    txtusername.Text = user.getUsername(ID);
+                    txtpassword.Text = user.getPassword(ID);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }   
+            
+            
         }
         private void manageTeacher_load(object sender, EventArgs e)
         {
@@ -126,7 +143,7 @@ namespace PBL3
                     MemoryStream ms = new MemoryStream();
                     pictureBox_student.Image.Save(ms, pictureBox_student.Image.RawFormat);
                     byte[] img = ms.ToArray();
-                    if (teacher.updateTeacher(id, fname, lname, bdate, gender, phone, address, img) && user.update_user(userID, username, password) && subjectclass.Update_SUB(id, SubID)) ;
+                    if (teacher.updateTeacher(id, fname, lname, bdate, gender, phone, address, img) && user.update_user(userID, username, password) && subjectclass.Update_SUB(id, SubID)) 
                     {
                         showTable();
                         MessageBox.Show("Teacher data update", "Update Teacher", MessageBoxButtons.OK, MessageBoxIcon.Information);

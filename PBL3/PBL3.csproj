@@ -204,12 +204,6 @@
     </Compile>
     <Compile Include="BUS\StudentClass.cs" />
     <Compile Include="BUS\TeacherClass.cs" />
-    <Compile Include="TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="GUI\General\CourseForm.resx">
       <DependentUpon>CourseForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,9 +285,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Student\STD_Form.resx">
       <DependentUpon>STD_Form.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

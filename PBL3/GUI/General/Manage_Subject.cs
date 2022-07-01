@@ -43,18 +43,33 @@ namespace PBL3.GUI.General
         }
         private void DataGridView_course_Click(object sender, EventArgs e)
         {
-            textBox_id.Text = DataGridView_course.CurrentRow.Cells[0].Value.ToString();
-            textBox_Cname.Text = DataGridView_course.CurrentRow.Cells[1].Value.ToString();
-            string cName= DataGridView_course.CurrentRow.Cells[2].Value.ToString();
-            for (int i = 0; i < comboBox1.Items.Count; i++)
+            if (DataGridView_course.DataSource == null)
             {
-                if (comboBox1.GetItemText(comboBox1.Items[i])==cName)
+                DataGridView_course.Enabled = false;
+            }
+            else
+            {
+                try
                 {
-                    comboBox1.SelectedIndex = i;
-                    break;
-                }    
-            }    
-            textBox_description.Text = DataGridView_course.CurrentRow.Cells[3].Value.ToString();
+                    textBox_id.Text = DataGridView_course.CurrentRow.Cells[0].Value.ToString();
+                    textBox_Cname.Text = DataGridView_course.CurrentRow.Cells[1].Value.ToString();
+                    string cName = DataGridView_course.CurrentRow.Cells[2].Value.ToString();
+                    for (int i = 0; i < comboBox1.Items.Count; i++)
+                    {
+                        if (comboBox1.GetItemText(comboBox1.Items[i]) == cName)
+                        {
+                            comboBox1.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    textBox_description.Text = DataGridView_course.CurrentRow.Cells[3].Value.ToString();
+                }
+                catch (Exception exx)
+                {
+                    MessageBox.Show(exx.Message, "Subject Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }   
+                
         }
 
         private void button_clear_Click(object sender, EventArgs e)

@@ -171,7 +171,6 @@ D:\PBL_END\PBL3\bin\Debug\PBL3.exe
 D:\PBL_END\PBL3\bin\Debug\PBL3.pdb
 D:\PBL_END\PBL3\bin\Debug\Guna.UI2.dll
 D:\PBL_END\PBL3\obj\Debug\PBL3.csproj.CopyComplete
-D:\PBL_END\PBL3\obj\Debug\PBL3.TestForm.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.GUI.General.Subject_Form.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.GUI.General.Manage_Subject.resources
 D:\PBL_END\PBL3\obj\Debug\PBL3.GUI.General.Print_Subject.resources

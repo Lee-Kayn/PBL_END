@@ -39,28 +39,43 @@ namespace PBL3
 
         private void DataGridView_student_Click(object sender, EventArgs e)
         {
-            textBox_id.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
-            textBox_Fname.Text = DataGridView_student.CurrentRow.Cells[1].Value.ToString();
-            textBox_Lname.Text = DataGridView_student.CurrentRow.Cells[2].Value.ToString();
-                
-                
-            dateTimePicker1.Value = (DateTime)DataGridView_student.CurrentRow.Cells[3].Value;
-            if (DataGridView_student.CurrentRow.Cells[4].Value.ToString() == "Male")
-                radioButton_male.Checked = true;
-
-            textBox_phone.Text = DataGridView_student.CurrentRow.Cells[5].Value.ToString();
-            textBox_address.Text = DataGridView_student.CurrentRow.Cells[6].Value.ToString();
-            string Sub_ID= DataGridView_student.CurrentRow.Cells[7].Value.ToString();
-            byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[8].Value;
-            MemoryStream ms = new MemoryStream(img);
-            pictureBox_student.Image = Image.FromStream(ms);
-            int ID=Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
-            txt_username.Text = user.getUsername(ID);
-            txt_password.Text = user.getPassword(ID);
-            pre_user=txt_username.Text;
-            pre_pass = txt_password.Text;
+            if (DataGridView_student.DataSource == null)
+            {
+                DataGridView_student.Enabled = false;
+            }
+            else
+            {
+                try
+                {
+                    textBox_id.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
+                    textBox_Fname.Text = DataGridView_student.CurrentRow.Cells[1].Value.ToString();
+                    textBox_Lname.Text = DataGridView_student.CurrentRow.Cells[2].Value.ToString();
 
 
+                    dateTimePicker1.Value = (DateTime)DataGridView_student.CurrentRow.Cells[3].Value;
+                    if (DataGridView_student.CurrentRow.Cells[4].Value.ToString() == "Male")
+                        radioButton_male.Checked = true;
+
+                    textBox_phone.Text = DataGridView_student.CurrentRow.Cells[5].Value.ToString();
+                    textBox_address.Text = DataGridView_student.CurrentRow.Cells[6].Value.ToString();
+                    string Sub_ID = DataGridView_student.CurrentRow.Cells[7].Value.ToString();
+                    byte[] img = (byte[])DataGridView_student.CurrentRow.Cells[8].Value;
+                    MemoryStream ms = new MemoryStream(img);
+                    pictureBox_student.Image = Image.FromStream(ms);
+                    int ID = Convert.ToInt32(DataGridView_student.CurrentRow.Cells[7].Value.ToString());
+                    txt_username.Text = user.getUsername(ID);
+                    txt_password.Text = user.getPassword(ID);
+                    pre_user = txt_username.Text;
+                    pre_pass = txt_password.Text;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            
+
+            
         }
 
         private void button_clear_Click(object sender, EventArgs e)

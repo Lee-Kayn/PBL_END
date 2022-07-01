@@ -54,9 +54,10 @@ namespace PBL3
                 int id = Convert.ToInt32(textBox_id.Text);
                 string cName = textBox_Cname.Text;
                 string desc = textBox_description.Text;
+                DateTime start = dateTimePicker1.Value;
+                DateTime end = dateTimePicker2.Value;
 
-
-                if (course.updateCourse(id, cName, desc))
+                if (course.updateCourse(id, cName,start,end ,desc))
                 {
                     showData();
                     button_clear.PerformClick();
@@ -111,11 +112,27 @@ namespace PBL3
 
         private void DataGridView_course_Click(object sender, EventArgs e)
         {
-            textBox_id.Text = DataGridView_course.CurrentRow.Cells[0].Value.ToString();
-            textBox_Cname.Text = DataGridView_course.CurrentRow.Cells[1].Value.ToString();
-            dateTimePicker1.Value = Convert.ToDateTime(DataGridView_course.CurrentRow.Cells[2].Value.ToString());
-            dateTimePicker2.Value = Convert.ToDateTime(DataGridView_course.CurrentRow.Cells[3].Value.ToString());
-            textBox_description.Text = DataGridView_course.CurrentRow.Cells[4].Value.ToString();
+            if (DataGridView_course.DataSource == null)
+            {
+                DataGridView_course.Enabled = false;
+            }
+            else
+            {
+                try
+                {
+                    textBox_id.Text = DataGridView_course.CurrentRow.Cells[0].Value.ToString();
+                    textBox_Cname.Text = DataGridView_course.CurrentRow.Cells[1].Value.ToString();
+                    dateTimePicker1.Value = Convert.ToDateTime(DataGridView_course.CurrentRow.Cells[2].Value.ToString());
+                    dateTimePicker2.Value = Convert.ToDateTime(DataGridView_course.CurrentRow.Cells[3].Value.ToString());
+                    textBox_description.Text = DataGridView_course.CurrentRow.Cells[4].Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            
+            
         }
 
         private void button_search_Click(object sender, EventArgs e)

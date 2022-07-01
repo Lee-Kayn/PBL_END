@@ -64,7 +64,7 @@ namespace PBL3
 
         private void button_add_Click(object sender, EventArgs e)
         {
-            if (textBox_stdId.Text == "" || textBox_score.Text == ""||comboBox_course.SelectedIndex<0||comboBox1.SelectedIndex<0)
+            if (textBox_stdId.Text == "" ||comboBox_course.SelectedIndex<0||comboBox1.SelectedIndex<0)
             {
                 MessageBox.Show("Need score data", "Field Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -73,9 +73,26 @@ namespace PBL3
                 int stdId = Convert.ToInt32(textBox_stdId.Text);
                 string cName = comboBox_course.Text;
                 string course_ID = course.exeCount("SELECT `CourseId` FROM `course` WHERE CourseName='" + cName + "'");
-                double exc = Convert.ToInt32(textBox_score.Text);
-                double Exam= Convert.ToInt32(textBox1.Text);
-                double Sum = exc * 0.3 + Exam * 0.7;
+                double exc, Exam;
+                if(textBox_score.Text!="")
+                {
+                     exc = Convert.ToInt32(textBox_score.Text);
+                }
+                else
+                {
+                    exc = 0;
+                }
+                if (textBox_score.Text != "")
+                {
+                     Exam = Convert.ToInt32(textBox1.Text);
+                }
+                else
+                {
+                    Exam=0;
+                }
+                double Sum=0;
+                if(exc!=0|| Exam!=0)
+                    Sum = exc * 0.3 + Exam * 0.7;
                 string sub_name = comboBox1.Text;
                 string Sub_ID = subjectClass.exeCount("SELECT `Subject_ID` FROM `subject` WHERE CourseId='"+course_ID+"'");
                 string desc = textBox_description.Text;
@@ -89,7 +106,14 @@ namespace PBL3
                         {
                             showScoe();
                             button_clear.PerformClick();
-                            MessageBox.Show("New score added", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if(Sum!=0)
+                            {
+                                MessageBox.Show("New score added", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }  
+                            else
+                            {
+                                MessageBox.Show("New student added", "Add Student", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }    
 
                         }
                         else
@@ -99,7 +123,7 @@ namespace PBL3
                     }
                     else
                     {
-                        MessageBox.Show("The score for this course are alerady exists", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The score for this subject are alerady exists", "Add Score", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -117,11 +141,19 @@ namespace PBL3
             if(comboBox_course.Items.Count>0)
                 comboBox_course.SelectedIndex = 0;
             textBox_description.Clear();
+            textBox1.Clear();
         }
 
         private void DataGridView_student_Click(object sender, EventArgs e)
         {
-            textBox_stdId.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
+            try
+            {
+                textBox_stdId.Text = DataGridView_student.CurrentRow.Cells[0].Value.ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Score Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void button_sStudent_Click(object sender, EventArgs e)
